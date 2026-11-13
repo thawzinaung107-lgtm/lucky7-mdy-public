@@ -1,12 +1,15 @@
+import heroTall from '@/assets/hero-tall.jpg';
+import heroShop from '@/assets/hero-shop.jpg';
+import heroStack from '@/assets/hero-stack.jpg';
 import { ArrowRight, Crown, MessageCircle, ShoppingBag } from 'lucide-react';
 import { Link } from '@/lib/router';
 import { useI18n } from '@/lib/i18n';
 import { STORE_INFO } from '@/lib/storeInfo';
 
 const HERO_IMAGES = {
-  tall: '/generated-1793986619191-e230i.png',
-  topRight: 'https://images.pexels.com/photos/36200256/pexels-photo-36200256.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-  bottomRight: 'https://images.pexels.com/photos/15893780/pexels-photo-15893780.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
+  tall: heroTall,
+  topRight: heroShop,
+  bottomRight: heroStack,
 };
 
 export default function HeroSection() {
