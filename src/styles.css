@@ -158,16 +158,21 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+@font-face { font-family: "KoZ 052"; src: url("/__l5e/assets-v1/776f4650-8df9-4d18-9290-e101521b38b9/koz-052.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "A ka 02"; src: url("/__l5e/assets-v1/becd0ab7-3cf3-4fc8-a8d2-4079dd42ecfb/a-ka-02.ttf") format("truetype"); font-display: swap; }
+
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
   html {
-    font-family: "Inter", "Noto Sans Myanmar", system-ui, sans-serif;
+    font-family: "A ka 02", "Noto Sans Myanmar", system-ui, sans-serif;
+    font-synthesis: none;
   }
-  html[lang="my"] {
-    font-family: "Noto Sans Myanmar", "Inter", system-ui, sans-serif;
+  h1, h2, h3, h4 {
+    font-family: "KoZ 052", "A ka 02", system-ui, sans-serif;
+    font-weight: 400;
   }
   body {
     min-width: 320px;
