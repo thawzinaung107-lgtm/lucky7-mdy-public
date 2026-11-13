@@ -158,7 +158,7 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
-@font-face { font-family: "KoZ 052"; src: url("/__l5e/assets-v1/776f4650-8df9-4d18-9290-e101521b38b9/koz-052.ttf") format("truetype"); font-display: swap; }
+@font-face { font-family: "PT_A Thwin Thit"; src: url("/__l5e/assets-v1/b3b9ba77-7292-47e1-9e0e-a9686261e855/heading-font.ttf") format("truetype"); font-display: swap; }
 @font-face { font-family: "A ka 02"; src: url("/__l5e/assets-v1/becd0ab7-3cf3-4fc8-a8d2-4079dd42ecfb/a-ka-02.ttf") format("truetype"); font-display: swap; }
 
 @layer base {
@@ -171,7 +171,7 @@
     font-synthesis: none;
   }
   h1, h2, h3, h4 {
-    font-family: "KoZ 052", "A ka 02", system-ui, sans-serif;
+    font-family: "PT_A Thwin Thit", "A ka 02", system-ui, sans-serif;
     font-weight: 400;
   }
   body {
