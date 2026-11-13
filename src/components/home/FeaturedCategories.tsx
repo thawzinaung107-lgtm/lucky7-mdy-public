@@ -17,8 +17,8 @@ export default function FeaturedCategories({ categories }: { categories: Categor
         >
           <span className="gold-rule h-0.5 w-8 rounded-full" aria-hidden="true" />
           <span className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{t('categories')}</span>
-          <span className="mt-4 flex items-center justify-between gap-2 text-lg font-bold text-foreground">
-            {language === 'my' ? category.nameMy : category.nameEn}
+          <span className="mt-4 grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-2 text-base font-bold text-foreground sm:text-lg">
+            <span className="min-w-0">{language === 'my' ? category.nameMy : category.nameEn}</span>
             <ArrowUpRight
               size={18}
               aria-hidden="true"

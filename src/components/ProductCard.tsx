@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: ProductSummary }) {
   return (
     <Link
       to={`/product/${product.slug}`}
-      className="glass-card group flex flex-col overflow-hidden rounded-[1.75rem] hover:-translate-y-1.5"
+      className="glass-card group flex min-w-0 flex-col overflow-hidden rounded-[1.75rem] text-left hover:-translate-y-1.5"
     >
       <div className="m-2 aspect-[3/4] overflow-hidden rounded-[1.3rem] bg-muted">
         <img
@@ -22,9 +22,9 @@ export default function ProductCard({ product }: { product: ProductSummary }) {
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-3 px-4 pb-4 pt-2">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-foreground">{name}</h3>
+      <div className="flex min-w-0 flex-1 flex-col gap-3 px-3 pb-4 pt-2 sm:px-4">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-2">
+          <h3 className="min-w-0 text-sm font-semibold text-foreground">{name}</h3>
           <span className="glass-pill flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-foreground transition group-hover:bg-primary group-hover:text-primary-foreground">
             <ArrowUpRight size={15} aria-hidden="true" />
           </span>

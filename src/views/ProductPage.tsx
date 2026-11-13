@@ -56,7 +56,7 @@ export default function ProductPage() {
         {t('backToShop')}
       </Link>
 
-      <div className="grid gap-8 md:grid-cols-2 md:items-start">
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
         <div className="glass-panel aspect-[3/4] overflow-hidden rounded-[2rem] p-2.5">
           {product.primaryImageUrl ? (
             <img src={product.primaryImageUrl} alt={name} className="h-full w-full rounded-[1.55rem] object-cover" />
@@ -68,14 +68,14 @@ export default function ProductPage() {
           )}
         </div>
 
-        <div className="glass-panel flex flex-col gap-6 rounded-[2rem] p-5 sm:p-6 md:sticky md:top-36">
+        <div className="glass-panel flex min-w-0 flex-col gap-6 rounded-[2rem] p-4 sm:p-6 lg:sticky lg:top-36">
           <div className="flex flex-col gap-3">
             <span className="gold-rule h-1 w-12 rounded-full" aria-hidden="true" />
             <h1 className="text-2xl font-bold leading-tight tracking-tight text-foreground md:text-3xl">{name}</h1>
             {summary && <p className="text-sm leading-relaxed text-muted-foreground">{summary}</p>}
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 items-start gap-3 min-[400px]:grid-cols-2">
             <div className="glass-pill rounded-2xl p-4">
               <p className="text-xs text-muted-foreground">{t('retailPrice')}</p>
               <p className="text-lg font-bold text-foreground">{formatMmk(product.retailPriceMmk)}</p>

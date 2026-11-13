@@ -20,9 +20,9 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-30 px-3 pt-3 sm:px-4">
-      <div className="glass-panel mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 rounded-[1.75rem] px-3 py-2.5 sm:gap-4 sm:px-4">
-        <Link to="/" className="flex items-center gap-2.5 text-foreground">
-          <span className="glass-pill flex rounded-2xl p-1">
+      <div className="glass-panel mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-2 rounded-[1.75rem] px-3 py-2.5 sm:gap-4 sm:px-4 lg:flex lg:justify-between">
+        <Link to="/" className="flex min-w-0 items-center gap-2.5 text-foreground">
+          <span className="glass-pill flex shrink-0 rounded-2xl p-1">
             <img
               src={LOGO_URL}
               alt={t('storeName')}
@@ -32,7 +32,7 @@ export default function SiteHeader() {
           <span className="hidden max-w-32 text-xs font-bold leading-tight lg:block">{t('storeName')}</span>
         </Link>
 
-        <nav className="glass-pill order-3 flex w-full items-center justify-center gap-1 rounded-full p-1 md:order-none md:w-auto" aria-label="Main">
+        <nav className="glass-pill order-3 col-span-2 grid w-full grid-cols-3 items-center gap-1 rounded-full p-1 text-center lg:order-none lg:flex lg:w-auto lg:shrink-0" aria-label="Main">
           <NavLink to="/" end className={navClass}>
             {t('home')}
           </NavLink>
@@ -40,8 +40,8 @@ export default function SiteHeader() {
             {t('shop')}
           </NavLink>
           <NavLink to="/cart" className={navClass}>
-            <span className="relative inline-flex items-center gap-1.5">
-              <ShoppingBag size={16} aria-hidden="true" />
+            <span className="relative inline-flex items-center justify-center gap-1.5">
+              <ShoppingBag size={16} className="shrink-0" aria-hidden="true" />
               {t('cart')}
               {totalQty > 0 && (
                 <span className="absolute -right-3 -top-2 rounded-full bg-brand-gold px-1.5 text-[10px] font-bold leading-4 text-primary shadow-sm">
@@ -52,12 +52,12 @@ export default function SiteHeader() {
           </NavLink>
         </nav>
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex min-w-0 items-center justify-end gap-1.5 sm:gap-2">
           {ready && profile ? (
             <>
-              <span className="hidden items-center gap-1.5 text-sm font-semibold text-foreground sm:inline-flex">
-                <UserRound size={16} aria-hidden="true" />
-                {profile.firstName ?? profile.username ?? `TG ${profile.telegramUserId}`}
+              <span className="hidden min-w-0 max-w-28 items-center gap-1.5 text-sm font-semibold text-foreground xl:inline-flex">
+                <UserRound size={16} className="shrink-0" aria-hidden="true" />
+                <span className="truncate">{profile.firstName ?? profile.username ?? `TG ${profile.telegramUserId}`}</span>
               </span>
               <button
                 type="button"

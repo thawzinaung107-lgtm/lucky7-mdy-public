@@ -65,8 +65,8 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
               const quantity = quantities[variant.id] ?? 0;
               const soldOut = variant.stockQty === 0;
               return (
-                <li key={variant.id} className="flex items-center justify-between gap-3 px-4 py-3">
-                  <div className="flex flex-col">
+                <li key={variant.id} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-3 py-3 sm:flex sm:justify-between sm:gap-3 sm:px-4">
+                  <div className="flex min-w-0 flex-col">
                     <span className="text-sm font-semibold text-foreground">
                       {t('size')}: {variant.sizeLabel}
                     </span>
@@ -74,7 +74,7 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
                       {soldOut ? t('soldOut') : `${t('inStock')}: ${variant.stockQty}`}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex shrink-0 items-center gap-1 sm:gap-2">
                     <button
                       type="button"
                       aria-label="-"

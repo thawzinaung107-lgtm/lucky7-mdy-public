@@ -56,20 +56,20 @@ export default function BrandProposalPage() {
             const isText = token.usage === 'text';
             return (
               <li key={token.role} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 items-center gap-3">
                   <span
                     className="h-10 w-10 shrink-0 rounded-full border border-input"
                     style={{ backgroundColor: token.hex }}
                     aria-hidden="true"
                   />
-                  <div className="flex flex-col">
+                  <div className="flex min-w-0 flex-col">
                     <span className="text-sm font-semibold text-foreground">{token.role}</span>
                     <span className="text-xs text-muted-foreground">
                       {token.hex} · {token.note}
                     </span>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-xs font-semibold">
+                <div className="flex shrink-0 items-center gap-2 text-xs font-semibold sm:max-w-40">
                   {isText ? (
                     passes ? (
                       <CheckCircle2 size={16} className="text-green-700" aria-hidden="true" />

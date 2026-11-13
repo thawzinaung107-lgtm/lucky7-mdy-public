@@ -14,13 +14,13 @@ export default function SiteFooter() {
   return (
     <footer className="px-3 pb-3 sm:px-4 sm:pb-4">
       <div className="glass-dark mx-auto grid max-w-6xl gap-10 rounded-[2rem] px-6 py-12 text-primary-foreground/80 md:grid-cols-3 md:px-10">
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           <img src="/assets/branding/lv_0_20261105180616.jpg" alt="" className="h-16 w-fit rounded-2xl object-contain" />
           <p className="text-lg font-bold text-primary-foreground">{t('storeName')}</p>
           <p className="text-sm leading-relaxed text-primary-foreground/70">{t('footerTagline')}</p>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           <h2 className="text-sm font-bold uppercase tracking-wider text-brand-gold">{t('footerContact')}</h2>
           <ul className="flex flex-col gap-3 text-sm">
             {contacts.map((item) => (
@@ -45,7 +45,7 @@ export default function SiteFooter() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex min-w-0 flex-col gap-4">
           <h2 className="text-sm font-bold uppercase tracking-wider text-brand-gold">{t('footerLinks')}</h2>
           <nav className="flex flex-col gap-3 text-sm" aria-label="Footer">
             <Link to="/" className="text-primary-foreground underline-offset-4 hover:text-brand-gold hover:underline">

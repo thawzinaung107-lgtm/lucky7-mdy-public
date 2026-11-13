@@ -35,3 +35,4 @@ use the editor.
 - Page components live in `src/views/` and use `@/lib/router` (react-router-style adapter over TanStack Router). Why: keeps imported Bolt components unchanged.
 - tsconfig has `noPropertyAccessFromIndexSignature` and `noUncheckedIndexedAccess` off. Why: imported code was written without them.
 - Staff access = a row in `public.staff` (Telegram user id); `src/lib/admin.functions.ts` checks the buyer session token and staff row server-side on every call. Why: reuses Telegram login; no separate admin account system.
+- Compact text/control rows use minmax(0,1fr) grids and non-shrinking controls; shared bilingual typography lives in src/styles.css. Why: prevents narrow-screen overflow and preserves Myanmar character spacing across pages.

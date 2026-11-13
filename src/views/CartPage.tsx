@@ -105,7 +105,7 @@ export default function CartPage() {
                     <img src={head.imageUrl} alt={name} className="h-full w-full rounded-xl object-cover" />
                   )}
                 </Link>
-                <div className="flex flex-col gap-1">
+                <div className="flex min-w-0 flex-col gap-1">
                   <Link
                     to={`/product/${head.productSlug}`}
                     className="text-sm font-semibold text-foreground hover:underline"
@@ -125,8 +125,8 @@ export default function CartPage() {
                   const colorLabel =
                     language === 'my' && item.colorMy ? item.colorMy : item.colorEn;
                   return (
-                    <li key={item.variantId} className="flex items-center justify-between gap-3 py-3">
-                      <div className="flex flex-col">
+                    <li key={item.variantId} className="grid grid-cols-1 items-center gap-3 py-3 min-[480px]:grid-cols-[minmax(0,1fr)_auto] sm:flex sm:justify-between">
+                      <div className="flex min-w-0 flex-col">
                         <span className="text-sm font-semibold text-foreground">
                           {t('color')}: {colorLabel} · {t('size')}: {item.sizeLabel}
                         </span>
@@ -134,7 +134,7 @@ export default function CartPage() {
                           {formatMmk(item.unitPriceMmk)} × {item.qty}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex shrink-0 items-center justify-end gap-2">
                         <button
                           type="button"
                           aria-label="-"
@@ -182,7 +182,7 @@ export default function CartPage() {
       </ul>
 
       <div className="glass-dark flex flex-col gap-3 rounded-[1.75rem] p-6">
-        <div className="flex items-center justify-between text-sm text-primary-foreground/70">
+        <div className="grid grid-cols-1 gap-2 text-sm text-primary-foreground/70 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
           <span>
             {t('quantity')}: <span className="font-semibold tabular-nums text-primary-foreground">{totalQty}</span> {t('pieces')}
           </span>

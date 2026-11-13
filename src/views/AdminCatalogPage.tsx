@@ -25,7 +25,7 @@ const label = 'text-xs font-semibold text-muted-foreground';
 
 function Field({ name, value, onChange, multiline }: { name: string; value: string; onChange: (v: string) => void; multiline?: boolean }) {
   return (
-    <label className="flex flex-col gap-1">
+    <label className="flex min-w-0 flex-col gap-1">
       <span className={label}>{name}</span>
       {multiline ? (
         <textarea className={input} rows={2} value={value} onChange={(e) => onChange(e.target.value)} />
@@ -39,7 +39,7 @@ function Field({ name, value, onChange, multiline }: { name: string; value: stri
 function SaveButton({ onSave }: { onSave: () => Promise<void> }) {
   const [state, setState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
   return (
-    <div className="flex items-center gap-3">
+    <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
       <button
         type="button"
         disabled={state === 'saving'}

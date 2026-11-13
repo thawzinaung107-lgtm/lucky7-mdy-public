@@ -10,12 +10,12 @@ export function WhyChooseUs() {
       {items.map((item, index) => (
         <article
           key={item.title}
-          className="glass-card flex gap-4 rounded-3xl p-6 hover:-translate-y-0.5"
+          className="glass-card grid grid-cols-[auto_minmax(0,1fr)] items-start gap-3 rounded-3xl p-4 sm:gap-4 sm:p-6 hover:-translate-y-0.5"
         >
           <span className="glass-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-bold text-foreground ring-1 ring-brand-gold/40">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <div className="flex flex-col gap-2">
+          <div className="flex min-w-0 flex-col gap-2">
             <h3 className="text-base font-bold text-foreground">{item.title}</h3>
             <p className="text-sm leading-relaxed text-muted-foreground">{item.body}</p>
           </div>

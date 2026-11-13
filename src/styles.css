@@ -199,9 +199,26 @@
   h1, h2, h3 {
     line-height: 1.2;
   }
-  html[lang="my"] h1, html[lang="my"] h2, html[lang="my"] h3 {
-    line-height: 1.45;
+  h1, h2, h3, p, label, li {
+    overflow-wrap: anywhere;
   }
+  body :is(h1, h2, h3, p, a, button, label, input, textarea, select, span) {
+    letter-spacing: 0;
+  }
+  button, input, textarea, select {
+    max-width: 100%;
+  }
+  button, input, textarea, select, a {
+    font-family: inherit;
+  }
+}
+
+/* Myanmar marks need space even when Tailwind font-size utilities set leading. */
+html[lang="my"] :is(h1, h2, h3) {
+  line-height: 1.65;
+}
+html[lang="my"] :is(button, input, textarea, select, a, p) {
+  line-height: 1.8;
 }
 
 @utility glass-panel {

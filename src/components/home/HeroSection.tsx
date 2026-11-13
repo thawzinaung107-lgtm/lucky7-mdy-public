@@ -19,12 +19,12 @@ export default function HeroSection() {
       <div className="pointer-events-none absolute -left-20 top-20 h-64 w-64 rounded-full bg-secondary/60 blur-3xl" aria-hidden="true" />
       <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-accent/50 blur-3xl" aria-hidden="true" />
       <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:gap-12 md:py-20">
-        <div className="flex flex-col gap-6">
+        <div className="flex min-w-0 flex-col gap-6">
           <span className="glass-pill inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-foreground">
             <Crown size={15} className="text-brand-gold" aria-hidden="true" />
             {t('storeName')}
           </span>
-          <h1 className="max-w-xl text-4xl font-bold tracking-[-0.035em] text-foreground sm:text-5xl lg:text-6xl">{t('heroHeadline')}</h1>
+          <h1 className="max-w-xl text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">{t('heroHeadline')}</h1>
           <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">{t('heroSub')}</p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
