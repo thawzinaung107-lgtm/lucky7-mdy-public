@@ -38,8 +38,8 @@ export default function ShopPage() {
   const chipClass = (active: boolean) =>
     `rounded-full px-4 py-2 text-sm font-semibold transition active:scale-95 ${
       active
-        ? 'bg-neutral-900 text-white'
-        : 'border border-neutral-300 bg-white text-neutral-800 hover:border-neutral-900'
+        ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/15'
+        : 'glass-pill text-foreground hover:bg-secondary/70'
     }`;
 
   const sortLabel: Record<SortKey, string> = {
@@ -49,8 +49,12 @@ export default function ShopPage() {
   };
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-8">
-      <div className="flex flex-col gap-4">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-7 px-4 py-10">
+      <header className="flex flex-col gap-3">
+        <span className="gold-rule h-1 w-12 rounded-full" aria-hidden="true" />
+        <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{t('shop')}</h1>
+      </header>
+      <div className="glass-panel flex flex-col gap-4 rounded-[1.75rem] p-4">
         <div className="flex flex-wrap gap-2" role="group" aria-label={t('categories')}>
           <button type="button" className={chipClass(!activeCategory)} onClick={() => updateParam('category', '')}>
             {t('allCategories')}
@@ -68,12 +72,12 @@ export default function ShopPage() {
         </div>
 
         <div className="flex justify-end">
-          <label className="flex items-center gap-2 text-sm text-neutral-700">
+          <label className="flex items-center gap-2 text-sm text-muted-foreground">
             <span className="sr-only">Sort</span>
             <select
               value={sort}
               onChange={(event) => updateParam('sort', event.target.value === 'newest' ? '' : event.target.value)}
-              className="rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
+              className="glass-input rounded-full px-4 py-2 text-sm text-foreground focus:outline-none"
             >
               {SORT_KEYS.map((key) => (
                 <option key={key} value={key}>

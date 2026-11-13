@@ -12,11 +12,12 @@ export default function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-900 text-neutral-200">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 md:grid-cols-3">
+    <footer className="px-3 pb-3 sm:px-4 sm:pb-4">
+      <div className="glass-dark mx-auto grid max-w-6xl gap-10 rounded-[2rem] px-6 py-12 text-primary-foreground/80 md:grid-cols-3 md:px-10">
         <div className="flex flex-col gap-4">
-          <p className="text-lg font-bold text-white">{t('storeName')}</p>
-          <p className="text-sm leading-relaxed text-neutral-300">{t('footerTagline')}</p>
+          <img src="/assets/branding/lv_0_20261105180616.jpg" alt="" className="h-16 w-fit rounded-2xl object-contain" />
+          <p className="text-lg font-bold text-primary-foreground">{t('storeName')}</p>
+          <p className="text-sm leading-relaxed text-primary-foreground/70">{t('footerTagline')}</p>
         </div>
 
         <div className="flex flex-col gap-4">
@@ -24,18 +25,18 @@ export default function SiteFooter() {
           <ul className="flex flex-col gap-3 text-sm">
             {contacts.map((item) => (
               <li key={item.label} className="flex flex-col">
-                <span className="text-neutral-400">{item.label}</span>
-                <span className="text-white">{item.value}</span>
+                <span className="text-primary-foreground/55">{item.label}</span>
+                <span className="text-primary-foreground">{item.value}</span>
               </li>
             ))}
             {STORE_INFO.telegramUrl && (
               <li className="flex flex-col">
-                <span className="text-neutral-400">{t('telegramLabel')}</span>
+                <span className="text-primary-foreground/55">{t('telegramLabel')}</span>
                 <a
                   href={STORE_INFO.telegramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white underline-offset-4 hover:underline"
+                  className="text-primary-foreground underline-offset-4 hover:text-brand-gold hover:underline"
                 >
                   {STORE_INFO.telegramUrl}
                 </a>
@@ -47,24 +48,22 @@ export default function SiteFooter() {
         <div className="flex flex-col gap-4">
           <h2 className="text-sm font-bold uppercase tracking-wider text-brand-gold">{t('footerLinks')}</h2>
           <nav className="flex flex-col gap-3 text-sm" aria-label="Footer">
-            <Link to="/" className="text-white underline-offset-4 hover:underline">
+            <Link to="/" className="text-primary-foreground underline-offset-4 hover:text-brand-gold hover:underline">
               {t('home')}
             </Link>
-            <Link to="/shop" className="text-white underline-offset-4 hover:underline">
+            <Link to="/shop" className="text-primary-foreground underline-offset-4 hover:text-brand-gold hover:underline">
               {t('shop')}
             </Link>
             <button
               type="button"
               onClick={() => setLanguage(language === 'my' ? 'en' : 'my')}
-              className="w-fit text-left text-white underline-offset-4 hover:underline"
+              className="w-fit text-left text-primary-foreground underline-offset-4 hover:text-brand-gold hover:underline"
             >
               {t('switchLanguage')}
             </button>
           </nav>
         </div>
-      </div>
-      <div className="border-t border-white/10">
-        <p className="mx-auto max-w-6xl px-4 py-5 text-xs text-neutral-400">
+        <p className="border-t border-primary-foreground/10 pt-6 text-xs text-primary-foreground/55 md:col-span-3">
           © {year} {t('storeName')}. {t('footerRights')}
         </p>
       </div>

@@ -8,6 +8,8 @@ export const Route = createFileRoute("/admin/brand")({
       { name: "description", content: "Brand colors and logo proposal for Lucky 7 Fashion Mandalay." },
       { property: "og:title", content: "Brand Proposal — Lucky 7 Fashion Mandalay" },
       { property: "og:description", content: "Brand colors and logo proposal for Lucky 7 Fashion Mandalay." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

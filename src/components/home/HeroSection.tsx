@@ -1,4 +1,4 @@
-import { ArrowRight, MessageCircle, ShoppingBag } from 'lucide-react';
+import { ArrowRight, Crown, MessageCircle, ShoppingBag } from 'lucide-react';
 import { Link } from '@/lib/router';
 import { useI18n } from '@/lib/i18n';
 import { STORE_INFO } from '@/lib/storeInfo';
@@ -15,16 +15,21 @@ export default function HeroSection() {
   const telegramIsExternal = Boolean(STORE_INFO.telegramUrl);
 
   return (
-    <section className="bg-neutral-50">
-      <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:gap-12 md:py-20">
+    <section className="relative overflow-hidden">
+      <div className="pointer-events-none absolute -left-20 top-20 h-64 w-64 rounded-full bg-secondary/60 blur-3xl" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-accent/50 blur-3xl" aria-hidden="true" />
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-4 py-12 md:grid-cols-2 md:gap-12 md:py-20">
         <div className="flex flex-col gap-6">
-          <span className="h-1 w-14 rounded-full bg-brand-gold" aria-hidden="true" />
-          <h1 className="text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">{t('heroHeadline')}</h1>
-          <p className="max-w-xl text-base leading-relaxed text-neutral-700 md:text-lg">{t('heroSub')}</p>
+          <span className="glass-pill inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-foreground">
+            <Crown size={15} className="text-brand-gold" aria-hidden="true" />
+            {t('storeName')}
+          </span>
+          <h1 className="max-w-xl text-4xl font-bold tracking-[-0.035em] text-foreground sm:text-5xl lg:text-6xl">{t('heroHeadline')}</h1>
+          <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">{t('heroSub')}</p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link
               to="/shop"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 active:scale-95"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-xl shadow-primary/20 transition hover:-translate-y-0.5 hover:bg-primary/90 active:scale-95"
             >
               <ShoppingBag size={18} aria-hidden="true" />
               {t('ctaShop')}
@@ -33,7 +38,7 @@ export default function HeroSection() {
             <a
               href={telegramHref}
               {...(telegramIsExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-900 px-6 py-3 text-sm font-semibold text-neutral-900 transition hover:bg-neutral-900 hover:text-white active:scale-95"
+              className="glass-pill inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold text-foreground transition hover:-translate-y-0.5 hover:bg-secondary/70 active:scale-95"
             >
               <MessageCircle size={18} aria-hidden="true" />
               {t('ctaTelegram')}
@@ -41,22 +46,22 @@ export default function HeroSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-3 grid-rows-2 gap-3 sm:gap-4" role="img" aria-label={t('heroAlt')}>
-          <div className="row-span-2 overflow-hidden rounded-3xl bg-neutral-100 ring-1 ring-brand-gold/50">
+        <div className="glass-panel grid grid-cols-3 grid-rows-2 gap-3 rounded-[2rem] p-3 sm:gap-4 sm:p-4" role="img" aria-label={t('heroAlt')}>
+          <div className="row-span-2 overflow-hidden rounded-[1.4rem] bg-muted ring-1 ring-brand-gold/50">
             <img
               src={HERO_IMAGES.tall}
               alt=""
               className="h-full w-full object-cover transition duration-700 hover:scale-105"
             />
           </div>
-          <div className="col-span-2 overflow-hidden rounded-3xl bg-neutral-100">
+          <div className="col-span-2 overflow-hidden rounded-[1.4rem] bg-muted">
             <img
               src={HERO_IMAGES.topRight}
               alt=""
               className="h-full w-full object-cover transition duration-700 hover:scale-105"
             />
           </div>
-          <div className="col-span-2 overflow-hidden rounded-3xl bg-neutral-100">
+          <div className="col-span-2 overflow-hidden rounded-[1.4rem] bg-muted">
             <img
               src={HERO_IMAGES.bottomRight}
               alt=""

@@ -13,10 +13,11 @@ export default function FeaturedCategories({ categories }: { categories: Categor
         <Link
           key={category.id}
           to={`/shop?category=${category.slug}`}
-          className="group flex min-h-28 flex-col justify-between rounded-2xl border border-neutral-200 bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-neutral-900 hover:shadow-md"
+          className="glass-card group flex min-h-32 flex-col justify-between overflow-hidden rounded-[1.75rem] p-5 hover:-translate-y-1"
         >
-          <span className="text-xs font-semibold uppercase tracking-wider text-neutral-600">{t('categories')}</span>
-          <span className="mt-4 flex items-center justify-between gap-2 text-lg font-bold text-neutral-900">
+          <span className="gold-rule h-0.5 w-8 rounded-full" aria-hidden="true" />
+          <span className="mt-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{t('categories')}</span>
+          <span className="mt-4 flex items-center justify-between gap-2 text-lg font-bold text-foreground">
             {language === 'my' ? category.nameMy : category.nameEn}
             <ArrowUpRight
               size={18}

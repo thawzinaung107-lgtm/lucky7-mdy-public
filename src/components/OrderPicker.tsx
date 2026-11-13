@@ -47,7 +47,7 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
 
   if (product.variants.length === 0) {
     return (
-      <p className="rounded-2xl border border-dashed border-neutral-300 p-6 text-sm text-neutral-600">
+      <p className="glass-pill rounded-2xl border-dashed p-6 text-sm text-muted-foreground">
         {t('noVariants')}
       </p>
     );
@@ -57,20 +57,20 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
     <div className="flex flex-col gap-6">
       {colorGroups.map((group) => (
         <div key={group.key} className="flex flex-col gap-2">
-          <h3 className="text-sm font-semibold text-neutral-900">
+          <h3 className="text-sm font-semibold text-foreground">
             {t('color')}: {group.label}
           </h3>
-          <ul className="flex flex-col divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-white">
+          <ul className="glass-pill flex flex-col divide-y divide-input overflow-hidden rounded-2xl">
             {group.variants.map((variant) => {
               const quantity = quantities[variant.id] ?? 0;
               const soldOut = variant.stockQty === 0;
               return (
                 <li key={variant.id} className="flex items-center justify-between gap-3 px-4 py-3">
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold text-neutral-900">
+                    <span className="text-sm font-semibold text-foreground">
                       {t('size')}: {variant.sizeLabel}
                     </span>
-                    <span className="text-xs text-neutral-600">
+                    <span className="text-xs text-muted-foreground">
                       {soldOut ? t('soldOut') : `${t('inStock')}: ${variant.stockQty}`}
                     </span>
                   </div>
@@ -80,11 +80,11 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
                       aria-label="-"
                       disabled={soldOut || quantity === 0}
                       onClick={() => setQuantity(variant, quantity - 1)}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition hover:border-neutral-900 active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="glass-pill flex h-9 w-9 items-center justify-center rounded-full text-foreground transition hover:bg-secondary active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       <Minus size={16} aria-hidden="true" />
                     </button>
-                    <span className="w-8 text-center text-sm font-semibold tabular-nums text-neutral-900">
+                    <span className="w-8 text-center text-sm font-semibold tabular-nums text-foreground">
                       {quantity}
                     </span>
                     <button
@@ -92,7 +92,7 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
                       aria-label="+"
                       disabled={soldOut || quantity >= variant.stockQty}
                       onClick={() => setQuantity(variant, quantity + 1)}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-300 text-neutral-900 transition hover:border-neutral-900 active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
+                      className="glass-pill flex h-9 w-9 items-center justify-center rounded-full text-foreground transition hover:bg-secondary active:scale-90 disabled:cursor-not-allowed disabled:opacity-40"
                     >
                       <Plus size={16} aria-hidden="true" />
                     </button>
@@ -104,26 +104,26 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
         </div>
       ))}
 
-      <div className="flex flex-col gap-3 rounded-2xl bg-neutral-900 p-5 text-white">
-        <div className="flex items-center justify-between text-sm text-neutral-300">
+      <div className="glass-dark flex flex-col gap-3 rounded-3xl p-5">
+        <div className="flex items-center justify-between text-sm text-primary-foreground/70">
           <span>
-            {t('quantity')}: <span className="font-semibold text-white tabular-nums">{totalQty}</span> {t('pieces')}
+            {t('quantity')}: <span className="font-semibold text-primary-foreground tabular-nums">{totalQty}</span> {t('pieces')}
           </span>
         </div>
         {totalQty === 0 ? (
-          <p className="text-sm text-neutral-300">{t('chooseQuantity')}</p>
+          <p className="text-sm text-primary-foreground/70">{t('chooseQuantity')}</p>
         ) : (
           <div className="flex flex-col gap-1">
-            <p className="text-sm text-neutral-300">{t('estimate')}</p>
+            <p className="text-sm text-primary-foreground/70">{t('estimate')}</p>
             <p className="text-2xl font-bold tabular-nums">{formatMmk(estimate)}</p>
-            <p className="text-xs text-neutral-400">{t('estimateNote')}</p>
+            <p className="text-xs text-primary-foreground/55">{t('estimateNote')}</p>
           </div>
         )}
-        {issue === 'below_moq' && <p className="text-sm font-semibold text-amber-300">{t('belowMoq', { n: product.moq })}</p>}
+        {issue === 'below_moq' && <p className="text-sm font-semibold text-brand-gold">{t('belowMoq', { n: product.moq })}</p>}
         {issue === 'off_step' && (
-          <p className="text-sm font-semibold text-amber-300">{t('offStep', { n: product.orderStep })}</p>
+          <p className="text-sm font-semibold text-brand-gold">{t('offStep', { n: product.orderStep })}</p>
         )}
-        {reachedWholesale && <p className="text-sm text-neutral-200">{t('wholesaleHint')}</p>}
+        {reachedWholesale && <p className="text-sm text-primary-foreground/85">{t('wholesaleHint')}</p>}
         <button
           type="button"
           disabled={!canAdd}
@@ -131,19 +131,19 @@ export default function OrderPicker({ product }: { product: ProductDetail }) {
             addItem(product, quantities);
             setAdded(true);
           }}
-          className="w-fit rounded-full bg-white px-6 py-3 text-sm font-bold text-neutral-900 transition hover:bg-neutral-100 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-fit rounded-full bg-primary-foreground px-6 py-3 text-sm font-bold text-primary shadow-lg transition hover:-translate-y-0.5 hover:bg-accent active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {added ? t('addedToCart') : t('addToCart')}
         </button>
         {added && (
           <Link
             to="/cart"
-            className="w-fit text-sm font-semibold text-white underline underline-offset-4 hover:text-neutral-200"
+            className="w-fit text-sm font-semibold text-primary-foreground underline underline-offset-4 hover:text-primary-foreground/85"
           >
             {t('viewCart')}
           </Link>
         )}
-        <p className="text-xs text-neutral-400">{t('checkoutSoon')}</p>
+        <p className="text-xs text-primary-foreground/55">{t('checkoutSoon')}</p>
       </div>
     </div>
   );

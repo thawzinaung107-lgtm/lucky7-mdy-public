@@ -17,7 +17,7 @@ export default function ProductGrid({ products, loading, error, onRetry, emptyMe
     return (
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4" aria-busy="true">
         {Array.from({ length: 4 }, (_, index) => (
-          <div key={index} className="aspect-[3/5] animate-pulse rounded-2xl bg-neutral-200" />
+          <div key={index} className="glass-card aspect-[3/5] animate-pulse rounded-[1.75rem]" />
         ))}
       </div>
     );
@@ -25,12 +25,12 @@ export default function ProductGrid({ products, loading, error, onRetry, emptyMe
 
   if (error) {
     return (
-      <div className="flex flex-col items-start gap-3 rounded-2xl border border-red-200 bg-red-50 p-6">
-        <p className="text-sm text-red-800">{t('loadError')}</p>
+      <div className="glass-panel flex flex-col items-start gap-3 rounded-3xl p-6">
+        <p className="text-sm text-destructive">{t('loadError')}</p>
         <button
           type="button"
           onClick={onRetry}
-          className="rounded-full bg-red-800 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-900 active:scale-95"
+          className="rounded-full bg-destructive px-4 py-2 text-sm font-semibold text-destructive-foreground transition hover:bg-destructive/90 active:scale-95"
         >
           {t('retry')}
         </button>
@@ -40,7 +40,7 @@ export default function ProductGrid({ products, loading, error, onRetry, emptyMe
 
   if (products.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-neutral-300 p-10 text-center text-sm text-neutral-600">
+      <div className="glass-panel rounded-3xl border-dashed p-10 text-center text-sm text-muted-foreground">
         {emptyMessage}
       </div>
     );

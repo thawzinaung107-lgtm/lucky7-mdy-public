@@ -9,29 +9,30 @@ export default function LoginPage() {
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-col items-center gap-6 px-4 py-16">
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold text-neutral-900">{t('loginTitle')}</h1>
-        <p className="text-sm leading-relaxed text-neutral-600">{t('loginSubtitle')}</p>
+      <div className="flex flex-col items-center gap-3 text-center">
+        <span className="gold-rule h-1 w-12 rounded-full" aria-hidden="true" />
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">{t('loginTitle')}</h1>
+        <p className="text-sm leading-relaxed text-muted-foreground">{t('loginSubtitle')}</p>
       </div>
 
       {ready && profile ? (
-        <div className="flex w-full flex-col items-center gap-4 rounded-3xl border border-neutral-200 bg-white p-8">
-          <p className="text-sm font-semibold text-neutral-900">
+        <div className="glass-panel flex w-full flex-col items-center gap-4 rounded-[2rem] p-8 text-center">
+          <p className="text-sm font-semibold text-foreground">
             {profile.firstName ?? profile.username ?? `TG ${profile.telegramUserId}`}
           </p>
-          <p className="text-xs text-neutral-600">{t('alreadySignedIn')}</p>
+          <p className="text-xs text-muted-foreground">{t('alreadySignedIn')}</p>
           <Link
             to="/cart"
-            className="rounded-full bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-700 active:scale-95"
+            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/15 transition hover:-translate-y-0.5 active:scale-95"
           >
             {t('viewCart')}
           </Link>
         </div>
       ) : (
-        <div className="flex w-full flex-col items-center gap-4 rounded-3xl border border-neutral-200 bg-white p-8">
-          {signInFailed && <p className="text-sm text-red-700">{t('loginFailed')}</p>}
+        <div className="glass-panel flex w-full flex-col items-center gap-4 rounded-[2rem] p-8 text-center">
+          {signInFailed && <p className="text-sm text-destructive">{t('loginFailed')}</p>}
           <TelegramLoginButton />
-          <p className="text-xs leading-relaxed text-neutral-500">{t('loginSecurityNote')}</p>
+          <p className="text-xs leading-relaxed text-muted-foreground/80">{t('loginSecurityNote')}</p>
         </div>
       )}
     </div>

@@ -8,6 +8,8 @@ export const Route = createFileRoute("/login")({
       { name: "description", content: "Sign in with your Telegram account to keep your cart and orders." },
       { property: "og:title", content: "Sign in with Telegram — Lucky 7 Fashion Mandalay" },
       { property: "og:description", content: "Sign in with your Telegram account to keep your cart and orders." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Page,

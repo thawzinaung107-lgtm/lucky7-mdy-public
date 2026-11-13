@@ -8,6 +8,8 @@ export const Route = createFileRoute("/admin/catalog")({
       { name: "description", content: "Staff page for editing product and category names." },
       { property: "og:title", content: "Edit Catalog — Lucky 7 Fashion Mandalay" },
       { property: "og:description", content: "Staff page for editing product and category names." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),

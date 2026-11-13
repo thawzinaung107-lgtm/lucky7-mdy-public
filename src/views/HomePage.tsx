@@ -16,7 +16,7 @@ export default function HomePage() {
   const latest = products.data?.slice(0, 8) ?? [];
 
   return (
-    <div className="flex flex-col bg-neutral-50">
+    <div className="flex flex-col bg-transparent">
       <HeroSection />
 
       {categories.data && categories.data.length > 0 && (
@@ -33,7 +33,7 @@ export default function HomePage() {
           action={
             <Link
               to="/shop"
-              className="inline-flex items-center gap-1 text-sm font-semibold text-neutral-900 underline-offset-4 hover:underline"
+              className="glass-pill inline-flex items-center gap-1 rounded-full px-3 py-2 text-sm font-semibold text-foreground transition hover:bg-secondary/70"
             >
               {t('viewAll')}
               <ArrowRight size={16} aria-hidden="true" />
@@ -49,8 +49,8 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="bg-neutral-100/70 py-16 md:py-20" aria-labelledby="why-choose-us">
-        <div className="mx-auto w-full max-w-6xl px-4">
+      <section className="py-16 md:py-20" aria-labelledby="why-choose-us">
+        <div className="glass-panel mx-auto w-[calc(100%-2rem)] max-w-6xl rounded-[2rem] px-5 py-8 sm:px-8 md:py-10">
           <SectionHeading id="why-choose-us" title={t('whyTitle')} />
           <WhyChooseUs />
         </div>
@@ -61,9 +61,9 @@ export default function HomePage() {
         <HowToOrder />
       </section>
 
-      <section className="bg-neutral-900 py-16 md:py-20" aria-labelledby="trust-title">
-        <div className="mx-auto w-full max-w-6xl px-4">
-          <h2 id="trust-title" className="mb-10 text-2xl font-bold text-white md:text-3xl">
+      <section className="px-4 pb-16 md:pb-20" aria-labelledby="trust-title">
+        <div className="glass-dark mx-auto w-full max-w-6xl rounded-[2rem] px-6 py-10 sm:px-10 md:py-14">
+          <h2 id="trust-title" className="mb-10 text-2xl font-bold text-primary-foreground md:text-3xl">
             {t('trustTitle')}
           </h2>
           <TrustBand />

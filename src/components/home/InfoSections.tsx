@@ -10,14 +10,14 @@ export function WhyChooseUs() {
       {items.map((item, index) => (
         <article
           key={item.title}
-          className="flex gap-4 rounded-2xl border border-neutral-200 bg-white p-6 transition duration-300 hover:shadow-md"
+          className="glass-card flex gap-4 rounded-3xl p-6 hover:-translate-y-0.5"
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-100 text-sm font-bold text-neutral-900">
+          <span className="glass-pill flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl text-sm font-bold text-foreground ring-1 ring-brand-gold/40">
             {String(index + 1).padStart(2, '0')}
           </span>
           <div className="flex flex-col gap-2">
-            <h3 className="text-base font-bold text-neutral-900">{item.title}</h3>
-            <p className="text-sm leading-relaxed text-neutral-700">{item.body}</p>
+            <h3 className="text-base font-bold text-foreground">{item.title}</h3>
+            <p className="text-sm leading-relaxed text-muted-foreground">{item.body}</p>
           </div>
         </article>
       ))}
@@ -32,12 +32,12 @@ export function HowToOrder() {
   return (
     <ol className="grid gap-4 md:grid-cols-4">
       {steps.map((step, index) => (
-        <li key={step.title} className="relative flex flex-col gap-3 rounded-2xl bg-white p-6 shadow-sm">
+        <li key={step.title} className="glass-card relative flex flex-col gap-3 rounded-3xl p-6">
           <span className="text-3xl font-bold text-brand-gold" aria-hidden="true">
             {index + 1}
           </span>
-          <h3 className="text-base font-bold text-neutral-900">{step.title}</h3>
-          <p className="text-sm leading-relaxed text-neutral-700">{step.body}</p>
+          <h3 className="text-base font-bold text-foreground">{step.title}</h3>
+          <p className="text-sm leading-relaxed text-muted-foreground">{step.body}</p>
         </li>
       ))}
     </ol>
@@ -51,9 +51,9 @@ export function TrustBand() {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
-        <div key={stat.label} className="flex flex-col gap-2 border-t border-white/20 pt-6">
-          <p className="text-3xl font-bold text-white">{stat.value}</p>
-          <p className="text-sm text-neutral-300">{stat.label}</p>
+        <div key={stat.label} className="flex flex-col gap-2 border-t border-primary-foreground/20 pt-6">
+          <p className="text-3xl font-bold text-primary-foreground">{stat.value}</p>
+          <p className="text-sm text-primary-foreground/70">{stat.label}</p>
         </div>
       ))}
     </div>

@@ -29,26 +29,27 @@ const TEXT_THRESHOLD = 4.5;
 export default function BrandProposalPage() {
   return (
     <div className="mx-auto flex w-full max-w-4xl flex-col gap-8 px-4 py-10">
-      <header className="flex flex-col gap-2">
-        <p className="text-xs font-semibold uppercase tracking-widest text-neutral-600">Brand approval</p>
-        <h1 className="text-2xl font-bold text-neutral-900 md:text-3xl">Lucky 7 Fashion Mandalay brand theme</h1>
-        <p className="text-sm leading-relaxed text-neutral-700">
+      <header className="flex flex-col gap-3">
+        <span className="gold-rule h-1 w-12 rounded-full" aria-hidden="true" />
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Brand approval</p>
+        <h1 className="text-2xl font-bold text-foreground md:text-3xl">Lucky 7 Fashion Mandalay brand theme</h1>
+        <p className="text-sm leading-relaxed text-muted-foreground">
           The storefront now uses the colors sampled from your logo. The proposal below records the contrast checks.
         </p>
       </header>
 
-      <section className="flex flex-col items-center gap-4 rounded-3xl border border-neutral-200 bg-white p-6">
+      <section className="glass-panel flex flex-col items-center gap-4 rounded-[2rem] p-6">
         <img
           src="/assets/branding/lv_0_20261105180616.jpg"
           alt="Submitted logo"
           className="max-h-80 w-auto max-w-full rounded-2xl object-contain"
         />
-        <p className="text-xs text-neutral-600">Shown at its original proportions for review.</p>
+        <p className="text-xs text-muted-foreground">Shown at its original proportions for review.</p>
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-lg font-bold text-neutral-900">Proposed color tokens</h2>
-        <ul className="flex flex-col divide-y divide-neutral-200 overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+        <h2 className="text-lg font-bold text-foreground">Proposed color tokens</h2>
+        <ul className="glass-panel flex flex-col divide-y divide-input overflow-hidden rounded-3xl">
           {PROPOSED_TOKENS.map((token) => {
             const ratio = contrastRatio(token.hex, BACKGROUND);
             const passes = ratio >= TEXT_THRESHOLD;
@@ -57,13 +58,13 @@ export default function BrandProposalPage() {
               <li key={token.role} className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-3">
                   <span
-                    className="h-10 w-10 shrink-0 rounded-full border border-neutral-300"
+                    className="h-10 w-10 shrink-0 rounded-full border border-input"
                     style={{ backgroundColor: token.hex }}
                     aria-hidden="true"
                   />
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold text-neutral-900">{token.role}</span>
-                    <span className="text-xs text-neutral-600">
+                    <span className="text-sm font-semibold text-foreground">{token.role}</span>
+                    <span className="text-xs text-muted-foreground">
                       {token.hex} · {token.note}
                     </span>
                   </div>
@@ -73,12 +74,12 @@ export default function BrandProposalPage() {
                     passes ? (
                       <CheckCircle2 size={16} className="text-green-700" aria-hidden="true" />
                     ) : (
-                      <AlertTriangle size={16} className="text-amber-700" aria-hidden="true" />
+                      <AlertTriangle size={16} className="text-accent-foreground" aria-hidden="true" />
                     )
                   ) : (
-                    <Info size={16} className="text-neutral-600" aria-hidden="true" />
+                    <Info size={16} className="text-muted-foreground" aria-hidden="true" />
                   )}
-                  <span className="text-neutral-800">
+                  <span className="text-foreground">
                     {isText
                       ? `${ratio.toFixed(1)}:1 ${passes ? 'passes AA text' : 'fails AA text'}`
                       : `${ratio.toFixed(1)}:1 decorative only`}
@@ -88,22 +89,22 @@ export default function BrandProposalPage() {
             );
           })}
         </ul>
-        <p className="text-xs leading-relaxed text-neutral-600">
+        <p className="text-xs leading-relaxed text-muted-foreground">
           Ratios are measured against the blush background. AA text requires at least 4.5:1. Colors that fail are kept
           for decoration only, and text on them uses the navy or deep teal instead.
         </p>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-5">
-        <h2 className="text-lg font-bold text-neutral-900">Typography</h2>
-        <p className="text-sm leading-relaxed text-neutral-700">
+      <section className="glass-card flex flex-col gap-3 rounded-3xl p-6">
+        <h2 className="text-lg font-bold text-foreground">Typography</h2>
+        <p className="text-sm leading-relaxed text-muted-foreground">
           English headings and labels: Inter. Burmese text: Noto Sans Myanmar, which keeps Myanmar characters legible at
           small sizes. Both are proposed for approval.
         </p>
-        <p className="text-base text-neutral-900">ဝတ်စုံများ ၊ Everyday clothing, retail and wholesale</p>
+        <p className="text-base text-foreground">ဝတ်စုံများ ၊ Everyday clothing, retail and wholesale</p>
       </section>
 
-      <section className="flex flex-col gap-3 rounded-2xl border border-emerald-300 bg-emerald-50 p-5">
+      <section className="glass-panel flex flex-col gap-3 rounded-3xl border-brand-gold/40 p-6">
         <h2 className="text-base font-bold text-emerald-900">Approved and applied</h2>
         <p className="text-sm leading-relaxed text-emerald-900">
           The owner approved this logo-based theme. The storefront header, hero and buttons now use these colors.
