@@ -32,7 +32,7 @@ export default function SiteHeader() {
           <span className="hidden max-w-32 text-xs font-bold leading-tight lg:block">{t('storeName')}</span>
         </Link>
 
-        <nav className="glass-pill order-3 col-span-2 grid w-full grid-cols-3 items-center gap-1 rounded-full p-1 text-center lg:order-none lg:flex lg:w-auto lg:shrink-0" aria-label="Main">
+        <nav className="glass-pill hidden items-center gap-1 rounded-full p-1 text-center lg:flex lg:w-auto lg:shrink-0" aria-label="Main">
           <NavLink to="/" end className={navClass}>
             {t('home')}
           </NavLink>

@@ -38,6 +38,7 @@ export interface ProductSummary {
   primaryImageUrl: string;
   priceTiers: PriceTier[];
   createdAt: string;
+  stockQty?: number;
 }
 
 export interface ProductDetail extends ProductSummary {

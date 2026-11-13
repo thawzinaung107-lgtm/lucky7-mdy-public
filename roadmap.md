@@ -7,3 +7,10 @@
 ## Cross-device text alignment
 - [x] Fix bilingual text wrapping, heading spacing, and compact control rows across store pages
 - [x] Verify phone, tablet, and desktop layouts and the add-to-cart flow
+
+## Store shopping improvements
+- [x] Add mobile navigation, bilingual search, and scrolling category filters
+- [x] Add real stock badges, quick view, image zoom, and color/size ordering
+- [x] Add minimum-order progress and wholesale price comparisons
+- [x] Add prepared Telegram order sharing without claiming an order was placed
+- [x] Test shopping and Telegram handoff on phone, tablet, and desktop

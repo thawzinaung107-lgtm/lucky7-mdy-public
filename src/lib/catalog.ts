@@ -50,7 +50,7 @@ interface ProductRow {
 }
 
 const PRODUCT_COLUMNS =
-  'id, slug, category_id, name_my, name_en, summary_my, summary_en, retail_price_mmk, moq, order_step, primary_image_url, created_at, product_price_tiers(customer_group, min_qty, unit_price_mmk)';
+  'id, slug, category_id, name_my, name_en, summary_my, summary_en, retail_price_mmk, moq, order_step, primary_image_url, created_at, product_price_tiers(customer_group, min_qty, unit_price_mmk), product_variants(id, sku, color_my, color_en, size_label, stock_qty, is_active)';
 
 function requireArray<T>(value: unknown, label: string): T[] {
   if (!Array.isArray(value)) {
@@ -107,6 +107,7 @@ function mapProduct(row: ProductRow): ProductSummary {
     primaryImageUrl: row.primary_image_url,
     priceTiers: mapTiers(row.product_price_tiers),
     createdAt: row.created_at,
+    stockQty: (row.product_variants ?? []).filter((variant) => variant.is_active).reduce((sum, variant) => sum + variant.stock_qty, 0),
   };
 }
 
@@ -133,7 +134,7 @@ export async function fetchProductBySlug(slug: string): Promise<ProductDetail | 
   const { data, error } = await supabase
     .from('products')
     .select(
-      `${PRODUCT_COLUMNS}, product_variants(id, sku, color_my, color_en, size_label, stock_qty, is_active)`,
+      PRODUCT_COLUMNS,
     )
     .eq('slug', slug)
     .maybeSingle();

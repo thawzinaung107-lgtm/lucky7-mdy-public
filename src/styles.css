@@ -285,3 +285,15 @@ html[lang="my"] :is(button, input, textarea, select, a, p) {
 @utility gold-rule {
   background: linear-gradient(90deg, var(--color-brand-gold), oklch(0.9 0.055 83 / 20%));
 }
+
+.quantity-progress {
+  background: var(--secondary);
+  accent-color: var(--primary);
+}
+.quantity-progress::-webkit-progress-bar { background: var(--secondary); }
+.quantity-progress::-webkit-progress-value { background: var(--primary); border-radius: 8px; }
+.quantity-progress::-moz-progress-bar { background: var(--primary); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

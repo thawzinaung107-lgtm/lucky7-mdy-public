@@ -5,6 +5,8 @@ import { useI18n } from '@/lib/i18n';
 import { useCart, type CartItem } from '@/lib/cart';
 import { fetchCartQuote, type QuoteLine } from '@/lib/quote';
 import { formatMmk } from '@/lib/pricing';
+import TelegramOrder from '@/components/TelegramOrder';
+import { Button } from '@/components/ui/button';
 
 interface QuoteState {
   loading: boolean;
@@ -31,7 +33,7 @@ export default function CartPage() {
       return;
     }
     let active = true;
-    setQuote((prev) => ({ ...prev, loading: true }));
+    setQuote({ ...IDLE_QUOTE, loading: true });
     const timer = window.setTimeout(() => {
       fetchCartQuote(items.map((item) => ({ variantId: item.variantId, qty: item.qty })))
         .then((result) => {
@@ -193,14 +195,9 @@ export default function CartPage() {
           <p className="text-3xl font-bold tabular-nums">{formatMmk(quote.totalMmk ?? fallbackTotal)}</p>
           {quote.error && <p className="text-xs text-brand-gold">{t('quoteError')}</p>}
         </div>
-        <button
-          type="button"
-          disabled
-          className="w-fit cursor-not-allowed rounded-full border border-primary-foreground/15 bg-primary-foreground/10 px-6 py-3 text-sm font-semibold text-primary-foreground/60"
-        >
-          {t('checkout')}
-        </button>
-        <p className="text-xs text-primary-foreground/55">{t('checkoutSoon')}</p>
+        <TelegramOrder items={items} total={quote.totalMmk ?? fallbackTotal} disabled={quote.loading || quote.error || !quote.quotes?.length || quote.quotes.some((line) => line.issues.length > 0 || line.unavailableSkus.length > 0)} />
+        {quote.error && <Button variant="outline" onClick={() => { setQuote({ ...IDLE_QUOTE, loading: true }); fetchCartQuote(items.map((item) => ({ variantId: item.variantId, qty: item.qty }))).then((result) => setQuote({ loading: false, error: false, quotes: result.quotes, totalMmk: result.totalMmk })).catch(() => setQuote({ ...IDLE_QUOTE, error: true })); }}>{t('retry')}</Button>}
+        <p className="text-xs text-primary-foreground/70">{t('orderPending')}</p>
       </div>
     </div>
   );

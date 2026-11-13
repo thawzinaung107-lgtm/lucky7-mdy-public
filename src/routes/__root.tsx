@@ -17,6 +17,7 @@ import { AuthProvider } from "@/lib/auth";
 import { CartProvider } from "@/lib/cart";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import MobileNavigation from "@/components/MobileNavigation";
 
 function NotFoundComponent() {
   return (
@@ -133,7 +134,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <I18nProvider>
-        <div className="flex min-h-screen flex-col bg-transparent">
+        <div className="flex min-h-screen flex-col bg-transparent pb-24 lg:pb-0">
           <AuthProvider>
             <CartProvider>
               <SiteHeader />
@@ -142,6 +143,7 @@ function RootComponent() {
                 <Outlet />
               </main>
               <SiteFooter />
+              <MobileNavigation />
             </CartProvider>
           </AuthProvider>
         </div>
