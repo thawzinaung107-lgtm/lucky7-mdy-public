@@ -11,7 +11,7 @@ import {
 import { getBotInfo, getMe, logout, telegramLogin } from '@/lib/store.functions';
 import { useI18n } from '@/lib/i18n';
 
-const SESSION_KEY = 'storefront-session-token';
+export const SESSION_KEY = 'storefront-session-token';
 const TOKEN_PATTERN = /^[A-Za-z0-9_-]{40,128}$/;
 
 export interface BuyerProfile {

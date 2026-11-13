@@ -34,3 +34,4 @@ use the editor.
 - Buyers sign in with Telegram (custom hashed sessions in `buyer_sessions`), not Cloud Auth. Why: preserves the original identity keyed on Telegram user id.
 - Page components live in `src/views/` and use `@/lib/router` (react-router-style adapter over TanStack Router). Why: keeps imported Bolt components unchanged.
 - tsconfig has `noPropertyAccessFromIndexSignature` and `noUncheckedIndexedAccess` off. Why: imported code was written without them.
+- Staff access = a row in `public.staff` (Telegram user id); `src/lib/admin.functions.ts` checks the buyer session token and staff row server-side on every call. Why: reuses Telegram login; no separate admin account system.

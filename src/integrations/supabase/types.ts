@@ -295,6 +295,29 @@ export type Database = {
           },
         ]
       }
+      staff: {
+        Row: {
+          created_at: string
+          telegram_user_id: number
+        }
+        Insert: {
+          created_at?: string
+          telegram_user_id: number
+        }
+        Update: {
+          created_at?: string
+          telegram_user_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "staff_telegram_user_id_fkey"
+            columns: ["telegram_user_id"]
+            isOneToOne: true
+            referencedRelation: "buyers"
+            referencedColumns: ["telegram_user_id"]
+          },
+        ]
+      }
       telegram_chats: {
         Row: {
           chat_id: number

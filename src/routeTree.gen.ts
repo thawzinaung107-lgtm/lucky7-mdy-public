@@ -14,6 +14,7 @@ import { Route as CartRouteImport } from './routes/cart'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as AdminBrandRouteImport } from './routes/admin.brand'
+import { Route as AdminCatalogRouteImport } from './routes/admin.catalog'
 import { Route as ProductSlugRouteImport } from './routes/product.$slug'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram-webhook'
 
@@ -42,6 +43,11 @@ const AdminBrandRoute = AdminBrandRouteImport.update({
   path: '/admin/brand',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminCatalogRoute = AdminCatalogRouteImport.update({
+  id: '/admin/catalog',
+  path: '/admin/catalog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductSlugRoute = ProductSlugRouteImport.update({
   id: '/product/$slug',
   path: '/product/$slug',
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/admin/brand': typeof AdminBrandRoute
+  '/admin/catalog': typeof AdminCatalogRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/public/telegram-webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/admin/brand': typeof AdminBrandRoute
+  '/admin/catalog': typeof AdminCatalogRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/public/telegram-webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/shop': typeof ShopRoute
   '/admin/brand': typeof AdminBrandRoute
+  '/admin/catalog': typeof AdminCatalogRoute
   '/product/$slug': typeof ProductSlugRoute
   '/api/public/telegram-webhook': typeof ApiPublicTelegramWebhookRoute
 }
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/admin/brand'
+    | '/admin/catalog'
     | '/product/$slug'
     | '/api/public/telegram-webhook'
   fileRoutesByTo: FileRoutesByTo
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/admin/brand'
+    | '/admin/catalog'
     | '/product/$slug'
     | '/api/public/telegram-webhook'
   id:
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/shop'
     | '/admin/brand'
+    | '/admin/catalog'
     | '/product/$slug'
     | '/api/public/telegram-webhook'
   fileRoutesById: FileRoutesById
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ShopRoute: typeof ShopRoute
   AdminBrandRoute: typeof AdminBrandRoute
+  AdminCatalogRoute: typeof AdminCatalogRoute
   ProductSlugRoute: typeof ProductSlugRoute
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
@@ -159,6 +172,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminBrandRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/catalog': {
+      id: '/admin/catalog'
+      path: '/admin/catalog'
+      fullPath: '/admin/catalog'
+      preLoaderRoute: typeof AdminCatalogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/product/$slug': {
       id: '/product/$slug'
       path: '/product/$slug'
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ShopRoute: ShopRoute,
   AdminBrandRoute: AdminBrandRoute,
+  AdminCatalogRoute: AdminCatalogRoute,
   ProductSlugRoute: ProductSlugRoute,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }
