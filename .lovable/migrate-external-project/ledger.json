@@ -1,0 +1,11 @@
+[
+ {"capability":"code/routes (/, /shop, /product/:slug, /cart, /login, /admin/brand)","source":"bolt react-router","outcome":"migrate","status":"verified","next_action":null},
+ {"capability":"schema (catalog, carts, buyers, sessions, telegram tables) + RLS","source":"supabase migrations","outcome":"migrate","status":"verified","next_action":null},
+ {"capability":"catalog demo records (3 categories, 8 products, tiers, variants)","source":"seed migration","outcome":"migrate","status":"verified","next_action":null},
+ {"capability":"production records (buyers, carts, telegram chats, any edited products)","source":"bolt database","outcome":"migrate","status":"pending","next_action":"user exports tables as CSV"},
+ {"capability":"auth: Telegram login with server sessions","source":"telegram-auth edge fn","outcome":"migrate to server functions","status":"implemented","next_action":"add TELEGRAM_BOT_TOKEN; set bot domain in BotFather; test sign-in"},
+ {"capability":"server cart + cart quote","source":"cart-sync, cart-quote edge fns","outcome":"migrate to server functions","status":"verified","next_action":null},
+ {"capability":"telegram webhook","source":"telegram-webhook edge fn","outcome":"migrate to /api/public/telegram-webhook","status":"implemented","next_action":"add TELEGRAM_WEBHOOK_SECRET; re-register webhook URL after publish"},
+ {"capability":"telegram-register-webhook","source":"edge fn returning 410","outcome":"dropped (already retired)","status":"accepted","next_action":null},
+ {"capability":"brand assets","source":"public/","outcome":"migrate","status":"verified","next_action":null}
+]

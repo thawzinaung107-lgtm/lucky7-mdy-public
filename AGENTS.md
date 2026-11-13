@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Storefront (migrated from Bolt)
+- Server logic lives in `src/lib/store.functions.ts` (createServerFn) and `src/routes/api/public/telegram-webhook.ts`; the service-role client is imported inside handlers only. Why: ports of the old edge functions; carts/buyers/sessions tables have no browser access.
+- Buyers sign in with Telegram (custom hashed sessions in `buyer_sessions`), not Cloud Auth. Why: preserves the original identity keyed on Telegram user id.
+- Page components live in `src/views/` and use `@/lib/router` (react-router-style adapter over TanStack Router). Why: keeps imported Bolt components unchanged.
+- tsconfig has `noPropertyAccessFromIndexSignature` and `noUncheckedIndexedAccess` off. Why: imported code was written without them.
