@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1794533947130,
+      "tag": "0000_bolt_storefront_import",
+      "breakpoints": true
+    }
+  ]
+}
