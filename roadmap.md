@@ -14,3 +14,7 @@
 - [x] Add minimum-order progress and wholesale price comparisons
 - [x] Add prepared Telegram order sharing without claiming an order was placed
 - [x] Test shopping and Telegram handoff on phone, tablet, and desktop
+
+## Telegram setup
+- [x] Set shop Telegram link
+- [x] Add owner as admin
