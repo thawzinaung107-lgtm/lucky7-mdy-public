@@ -41,6 +41,7 @@ async function sendMessage(botToken: string, chatId: number, text: string) {
     body: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
   });
   if (res.status === 403) return false;
+  if (res.status === 400) { console.error("telegram sendMessage rejected", await res.text()); return true; }
   if (!res.ok) throw new Error(`Telegram sendMessage failed with status ${res.status}`);
   return true;
 }
