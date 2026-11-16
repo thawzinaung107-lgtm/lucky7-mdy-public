@@ -173,7 +173,7 @@ export function TelegramLoginButton() {
     script.setAttribute('data-size', 'large');
     script.setAttribute('data-radius', '24');
     script.setAttribute('data-userpic', 'false');
-    script.setAttribute('data-onauth', 'telegramLogin(onTelegramAuth)');
+    script.setAttribute('data-onauth', 'telegramLogin(user)');
     script.setAttribute('data-request-access', 'write');
     container.appendChild(script);
 
