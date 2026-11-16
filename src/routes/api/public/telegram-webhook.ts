@@ -25,7 +25,7 @@ const MAIN_KEYBOARD = {
   input_field_placeholder: "အောက်က ခလုတ်တစ်ခု ရွေးပါ",
 };
 
-type Chat = { id: number; type: string; username?: string; first_name?: string };
+type Chat = { id: number; type: string; username?: string; first_name?: string; last_name?: string };
 type Message = { message_id: number; chat: Chat; text?: string };
 type Update = {
   update_id: number;
@@ -184,6 +184,18 @@ export const Route = createFileRoute("/api/public/telegram-webhook")({
               view = CONTACT_VIEW;
             } else if (cmd === "help" || text === BTN.help || cmd) {
               view = { text: HELP_TEXT, markup: MAIN_KEYBOARD };
+            } else if (text.includes("#L7ORDER")) {
+              const orderNo = `L7-${String(body.update_id).slice(-6)}`;
+              view = { text: `✅ အော်ဒါ လက်ခံရရှိပါပြီ!\nOrder received!\n\nအော်ဒါနံပါတ်: #${orderNo}\n\nဆိုင်မှ လက်ကျန်၊ ပို့ခနှင့် စုစုပေါင်းကို မကြာမီ အတည်ပြုပေးပါမယ်။ အတည်ပြုပြီးမှ ငွေလွှဲပေးပါ။ 🙏`, markup: MAIN_KEYBOARD };
+              const { data: staff } = await db.from("staff").select("telegram_user_id");
+              const who = [msg.chat.first_name, msg.chat.last_name].filter(Boolean).join(" ") || "Customer";
+              const handle = msg.chat.username ? `@${msg.chat.username}` : `ID ${msg.chat.id}`;
+              const alert = cut(`🔔 အော်ဒါသစ် #${orderNo}\n👤 ${who} (${handle})\n\n${text.replace("#L7ORDER", "").trim()}`, 3900);
+              const chatUrl = msg.chat.username ? `https://t.me/${msg.chat.username}` : `tg://user?id=${msg.chat.id}`;
+              for (const s of staff ?? []) {
+                if (s.telegram_user_id === msg.chat.id) continue;
+                await tg(botToken, "sendMessage", { chat_id: s.telegram_user_id, text: alert, reply_markup: { inline_keyboard: [[{ text: "💬 ဝယ်သူနှင့် စကားပြောရန်", url: chatUrl }]] }, disable_web_page_preview: true });
+              }
             } else {
               view = { text: "စာလက်ခံရရှိပါပြီ။ ဆိုင်မှ မကြာမီ ပြန်လည်ဖြေကြားပေးပါမယ်။ 🙏", markup: MAIN_KEYBOARD };
             }
