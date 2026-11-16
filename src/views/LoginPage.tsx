@@ -14,6 +14,14 @@ export default function LoginPage() {
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', address: '' });
+  const [saved, setSaved] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle');
+  const [skipped, setSkipped] = useState(false);
+  useEffect(() => { if (!user) return; const m = user.user_metadata ?? {}; setForm({ name: (m.buyer_name ?? m.full_name ?? m.name ?? '') as string, phone: (m.viber_phone ?? '') as string, address: (m.address ?? '') as string }); }, [user]);
+  const phoneOk = /^(\+?95|0)9\d{7,9}$/.test(form.phone.replace(/[\s-]/g, ''));
+  const save = async () => { setSaved('saving'); const { error } = await supabase.auth.updateUser({ data: { buyer_name: form.name.trim(), viber_phone: form.phone.trim(), address: form.address.trim() } }); setSaved(error ? 'error' : 'saved'); };
+  const needsProfile = !!user && !user.user_metadata?.viber_phone && !skipped;
+  const field = 'glass-input h-11 w-full rounded-lg px-3 font-normal';
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
@@ -37,7 +45,16 @@ export default function LoginPage() {
       <div className="glass-panel flex w-full flex-col items-center gap-4 rounded-[2rem] p-8 text-center">
         {ready && user ? (<>
           <p className="text-sm font-semibold text-foreground">{(user.user_metadata?.full_name as string) ?? user.email}</p>
-          <p className="text-xs text-muted-foreground">{t('alreadySignedIn')}</p>
+          <p className="text-xs text-muted-foreground">{needsProfile ? (my ? 'အော်ဒါမြန်မြန်တင်နိုင်ရန် အချက်အလက်ဖြည့်ပါ (မဖြစ်မနေမဟုတ်)' : 'Add your details for faster checkout (optional)') : t('alreadySignedIn')}</p>
+          <div className="flex w-full flex-col gap-3 text-left">
+            <label className="flex flex-col gap-1 text-sm font-semibold">{my ? 'ဝယ်သူအမည်' : 'Your name'}<input value={form.name} maxLength={80} onChange={(e) => { setForm({ ...form, name: e.target.value }); setSaved('idle'); }} className={field} /></label>
+            <label className="flex flex-col gap-1 text-sm font-semibold">{my ? 'Viber ဖုန်းနံပါတ်' : 'Viber phone'}<input value={form.phone} maxLength={20} inputMode="tel" placeholder="09xxxxxxxxx" onChange={(e) => { setForm({ ...form, phone: e.target.value }); setSaved('idle'); }} className={field} /></label>
+            <label className="flex flex-col gap-1 text-sm font-semibold">{my ? 'ပို့ရမည့်လိပ်စာ (မြို့နယ်ပါ)' : 'Delivery address'}<textarea value={form.address} maxLength={300} onChange={(e) => { setForm({ ...form, address: e.target.value }); setSaved('idle'); }} className="glass-input min-h-16 w-full rounded-lg p-3 font-normal" /></label>
+            {form.phone && !phoneOk && <p className="text-xs text-destructive">{my ? 'ဖုန်းနံပါတ် 09… ပုံစံဖြင့်ထည့်ပါ' : 'Use a 09… phone number'}</p>}
+            {saved === 'saved' && <p role="status" className="text-xs text-muted-foreground">{my ? 'သိမ်းပြီးပါပြီ' : 'Saved'}</p>}
+            {saved === 'error' && <p role="status" className="text-xs text-destructive">{my ? 'မသိမ်းနိုင်ပါ၊ ထပ်စမ်းပါ' : 'Could not save, try again'}</p>}
+            <div className="grid grid-cols-2 gap-2"><Button disabled={saved === 'saving' || (!!form.phone && !phoneOk)} onClick={() => void save()}>{my ? 'သိမ်းမည်' : 'Save'}</Button>{needsProfile ? <Button variant="outline" onClick={() => setSkipped(true)}>{my ? 'နောက်မှဖြည့်မည်' : 'Skip'}</Button> : <span />}</div>
+          </div>
           <Link to="/cart" className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground">{t('viewCart')}</Link>
           <Button variant="outline" onClick={() => void supabase.auth.signOut()}>{my ? 'ထွက်ရန်' : 'Sign out'}</Button>
         </>) : (<>

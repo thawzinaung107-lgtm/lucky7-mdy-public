@@ -13,7 +13,8 @@ export default function TelegramOrder({ items, total, disabled }: { items: CartI
   const [notes, setNotes] = useState('');
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
   const [buyer, setBuyer] = useState<BuyerInfo>({ name: '', phone: '', address: '', payment: 'kpay' });
-  useEffect(() => { void supabase.auth.getUser().then(({ data }) => { const n = data.user?.user_metadata?.full_name ?? data.user?.user_metadata?.name; if (typeof n === 'string') setBuyer((b) => (b.name ? b : { ...b, name: n })); }); }, []);
+  useEffect(() => { void supabase.auth.getUser().then(({ data }) => { const m = data.user?.user_metadata ?? {}; const s = (v: unknown) => (typeof v === 'string' ? v : ''); setBuyer((b) => ({ ...b, name: b.name || s(m.buyer_name ?? m.full_name ?? m.name), phone: b.phone || s(m.viber_phone), address: b.address || s(m.address) })); if (m.viber_phone || m.address) setPrefilled(true); }); }, []);
+  const [prefilled, setPrefilled] = useState(false);
   const complete = isBuyerInfoComplete(buyer);
   const message = buildOrderMessage(items, total, language, notes, buyer);
   const my = language === 'my';
@@ -23,6 +24,7 @@ export default function TelegramOrder({ items, total, disabled }: { items: CartI
     <DialogTrigger asChild><Button disabled={disabled} className="h-auto w-full whitespace-normal bg-primary-foreground py-3 text-primary hover:bg-accent"><MessageCircle />{t('prepareOrder')}</Button></DialogTrigger>
     <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] max-w-xl overflow-y-auto">
       <DialogTitle>{t('orderReview')}</DialogTitle><DialogDescription>{t('orderPending')}</DialogDescription>
+      {prefilled && <p className="text-xs text-muted-foreground">{my ? 'သိမ်းထားသော ဖုန်းနှင့်လိပ်စာကို ဖြည့်ထားပါသည်။ ဒီအော်ဒါအတွက် လိုသလို ပြင်နိုင်ပါသည်။' : 'Your saved phone and address are filled in. Edit them for this order if needed.'}</p>}
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="flex flex-col gap-2 text-sm font-semibold">{my ? 'ဝယ်သူအမည်' : 'Your name'}<input value={buyer.name} maxLength={80} autoComplete="name" onChange={(e) => update({ name: e.target.value })} className={field} /></label>
         <label className="flex flex-col gap-2 text-sm font-semibold">{my ? 'ဖုန်းနံပါတ်' : 'Phone number'}<input value={buyer.phone} maxLength={20} inputMode="tel" autoComplete="tel" placeholder="09xxxxxxxxx" onChange={(e) => update({ phone: e.target.value })} className={field} /></label>
