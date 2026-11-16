@@ -39,3 +39,6 @@ export function telegramOrderUrl(message: string, storeUrl: string): string {
   }
   return `https://t.me/share/url?url=&text=${encodeURIComponent(message)}`;
 }
+export function viberOrderUrl(message: string, number: string): string {
+  return `viber://chat?number=${encodeURIComponent(number)}&draft=${encodeURIComponent(message)}`;
+}

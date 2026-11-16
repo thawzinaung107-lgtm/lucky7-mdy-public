@@ -1,3 +1,4 @@
+import { supabase } from '@/integrations/supabase/client';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from '@/lib/router';
 import { SESSION_KEY, useAuth } from '@/lib/auth';
@@ -115,10 +116,12 @@ export default function AdminCatalogPage() {
 
   useEffect(() => {
     if (!ready) return;
-    const t = window.localStorage.getItem(SESSION_KEY) ?? '';
-    setToken(t);
-    if (!profile || !t) return setStatus('denied');
-    void load(t);
+    void supabase.auth.getSession().then(({ data: { session } }) => {
+      const t = session?.access_token ?? (profile ? window.localStorage.getItem(SESSION_KEY) ?? '' : '');
+      setToken(t);
+      if (!t) return setStatus('denied');
+      void load(t);
+    });
   }, [ready, profile, load]);
 
   return (

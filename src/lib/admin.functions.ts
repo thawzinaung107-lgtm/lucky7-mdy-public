@@ -8,6 +8,15 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 async function requireStaff(token: string) {
   const { supabaseAdmin: db } = await import("@/integrations/supabase/client.server");
+  if (token.includes(".")) {
+    // Google sign-in: verify the access token, then check the staff email list.
+    const { data: u, error } = await db.auth.getUser(token);
+    const email = u?.user?.email?.toLowerCase();
+    if (error || !email || !u.user.email_confirmed_at) throw new Error("unauthorized");
+    const { data: row } = await db.from("staff_emails").select("email").eq("email", email).maybeSingle();
+    if (!row) throw new Error("forbidden");
+    return db;
+  }
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(token));
   const hash = Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0")).join("");
   const { data: s } = await db
@@ -23,7 +32,7 @@ async function requireStaff(token: string) {
 
 function tokenOf(input: unknown) {
   const t = (input as { token?: unknown })?.token;
-  if (typeof t !== "string" || !SESSION_RE.test(t)) throw new Error("unauthorized");
+  if (typeof t !== "string" || !(SESSION_RE.test(t) || /^[A-Za-z0-9_.-]{20,4096}$/.test(t))) throw new Error("unauthorized");
   return t;
 }
 

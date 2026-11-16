@@ -4,10 +4,10 @@ import Page from "@/views/LoginPage";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in with Telegram — Lucky 7 Fashion Mandalay" },
-      { name: "description", content: "Sign in with your Telegram account to keep your cart and orders." },
-      { property: "og:title", content: "Sign in with Telegram — Lucky 7 Fashion Mandalay" },
-      { property: "og:description", content: "Sign in with your Telegram account to keep your cart and orders." },
+      { title: "Sign in — Lucky 7 Fashion Mandalay" },
+      { name: "description", content: "Sign in with Google to order faster." },
+      { property: "og:title", content: "Sign in — Lucky 7 Fashion Mandalay" },
+      { property: "og:description", content: "Sign in with Google to order faster." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
