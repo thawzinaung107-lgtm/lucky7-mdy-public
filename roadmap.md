@@ -20,11 +20,11 @@
 - [x] Add owner as admin
 
 ## Saved order management
-- [ ] Save validated, duplicate-safe Pending orders before Telegram/Viber contact
-- [ ] Add buyer order details and payment proof submission
-- [ ] Add staff order review, revisions, payment verification and history
-- [ ] Implement atomic inventory reservations, shipping, cancellation and inspected returns
-- [ ] Test order rules and full buyer/staff flows across phone and desktop
+- [x] Save validated, duplicate-safe Pending orders before Telegram/Viber contact
+- [x] Add buyer order details and payment proof submission
+- [x] Add staff order review, revisions, payment verification and history
+- [x] Implement atomic inventory reservations, shipping, cancellation and inspected returns
+- [ ] Test full buyer/staff flows across phone and desktop in the remix (blocked: catalog empty and admin account absent)
 
 ## Remix setup and order review
 - [x] Update TELEGRAM_BOT_TOKEN and TELEGRAM_WEBHOOK_SECRET through the secure form
