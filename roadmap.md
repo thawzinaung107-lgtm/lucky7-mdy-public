@@ -25,3 +25,7 @@
 - [ ] Add staff order review, revisions, payment verification and history
 - [ ] Implement atomic inventory reservations, shipping, cancellation and inspected returns
 - [ ] Test order rules and full buyer/staff flows across phone and desktop
+
+## Remix setup and order review
+- [ ] Update TELEGRAM_BOT_TOKEN and TELEGRAM_WEBHOOK_SECRET through the secure form
+- [ ] Verify all product order screens and resolve repeat-order issues
