@@ -45,10 +45,8 @@ export const sendPaymentProof = createServerFn({ method: 'POST' }).inputValidato
   const { supabaseAdmin: db } = await import('@/integrations/supabase/client.server');
   const row = await buyerAccess(db, data.id, data.receipt);
   if (row.payment_method === 'cod' || !['unpaid', 'verification_pending'].includes(row.payment_status) || ['cancelled', 'completed'].includes(row.status)) throw new Error('Payment evidence cannot be submitted for this order');
-  const { data: updated, error } = await db.from('orders').update({ payment_proof: data.image, payment_status: 'verification_pending', revision: row.revision + 1, updated_at: new Date().toISOString() }).eq('id', row.id).eq('revision', row.revision).select('id').maybeSingle();
-  if (error || !updated) throw new Error('Order changed. Please refresh and retry');
-  const event = await db.from('order_events').insert({ order_id: row.id, actor_id: row.user_id, action: 'payment_proof_submitted' });
-  if (event.error) console.error('payment history', event.error.message);
+  const { error } = await db.rpc('submit_order_evidence', { p_id: row.id, p_revision: row.revision, p_image: data.image });
+  if (error) throw new Error(error.message);
   return detail(db, data.id);
 });
 export const staffOrders = createServerFn({ method: 'POST' }).middleware([requireSupabaseAuth]).handler(async ({ context }) => {

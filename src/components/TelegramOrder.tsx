@@ -9,7 +9,7 @@ import { STORE_INFO } from '@/lib/storeInfo';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/dialog';
 import { submitOrder } from '@/lib/orders.functions';
-import { saveReceipt } from '@/lib/order-receipts';
+import { saveReceipt, orderAttempt, clearOrderAttempt } from '@/lib/order-receipts';
 import type { Order } from '@/lib/order-rules';
 import OrderSummary from '@/components/OrderSummary';
 import OrderContact from '@/components/OrderContact';
@@ -33,11 +33,11 @@ export default function TelegramOrder({ items, total, disabled }: { items: CartI
   const my = language === 'my';
   const update = (patch: Partial<BuyerInfo>) => { setBuyer((b) => ({ ...b, ...patch })); setCopyState('idle'); };
   const field = 'glass-input h-11 rounded-lg px-3 font-normal';
-  return <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (v && !request) { const bytes = new Uint8Array(32); crypto.getRandomValues(bytes); setRequest({ requestKey: crypto.randomUUID(), receipt: Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('') }); } }}>
+  return <Dialog open={open} onOpenChange={(v) => { setOpen(v); if (v && !saved) setRequest(orderAttempt(items.map((i) => `${i.variantId}:${i.qty}`).sort().join('|'))); }}>
     <DialogTrigger asChild><Button disabled={disabled} className="h-auto w-full whitespace-normal bg-primary-foreground py-3 text-primary hover:bg-accent"><MessageCircle />{t('prepareOrder')}</Button></DialogTrigger>
     <DialogContent className="max-h-[90dvh] w-[calc(100%-2rem)] max-w-xl overflow-y-auto">
       <DialogTitle>{saved ? saved.order_number : t('orderReview')}</DialogTitle><DialogDescription>{saved ? (my ? 'ဆိုင်အတည်ပြုချက် စောင့်ဆိုင်းနေသည်' : 'Waiting for shop confirmation') : t('orderPending')}</DialogDescription>
-      {saved ? <><OrderSummary order={saved} /><OrderContact order={saved} /><Button asChild variant="outline"><Link to={`/orders/${saved.id}`} onClick={() => setOpen(false)}>{my ? 'အော်ဒါအသေးစိတ် ကြည့်မည်' : 'View saved order'}</Link></Button></> : <>
+      {saved ? <><OrderSummary order={saved} /><OrderContact order={saved} /><Button asChild variant="outline"><Link to={`/orders/${saved.id}`} onClick={() => setOpen(false)}>{my ? 'အော်ဒါအသေးစိတ် ကြည့်မည်' : 'View saved order'}</Link></Button><Button variant="ghost" onClick={() => { clearOrderAttempt(); setSaved(null); setRequest(orderAttempt(items.map((i) => `${i.variantId}:${i.qty}`).sort().join('|'))); }}>{my ? 'အော်ဒါအသစ် စတင်မည်' : 'Start a new order'}</Button></> : <>
       {prefilled && <p className="text-xs text-muted-foreground">{my ? 'သိမ်းထားသော ဖုန်းနှင့်လိပ်စာကို ဖြည့်ထားပါသည်။ ဒီအော်ဒါအတွက် လိုသလို ပြင်နိုင်ပါသည်။' : 'Your saved phone and address are filled in. Edit them for this order if needed.'}</p>}
       <div className="grid gap-3 sm:grid-cols-2">
         <label className="flex flex-col gap-2 text-sm font-semibold">{my ? 'ဝယ်သူအမည်' : 'Your name'}<input value={buyer.name} maxLength={80} autoComplete="name" onChange={(e) => update({ name: e.target.value })} className={field} /></label>

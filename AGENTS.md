@@ -40,4 +40,5 @@ use the editor.
 - Order staff functions verify the authenticated staff-email permission through the user's client before loading the privileged client. Why: buyer metadata must never grant staff permissions.
 - Order inventory changes use transactional functions and a shared inventory lock; available stock is physical minus reservations everywhere. Why: concurrent confirmations cannot oversell and shipping deducts exactly once.
 - Payment evidence is size-limited inline image data in private order records. Why: keeps buyer evidence private without public storage links.
+- Checkout retries reuse a persisted attempt until the buyer explicitly starts a new order; payment evidence and its history commit atomically. Why: reloads must not duplicate requests or omit verification history.
 - Catalog stock badges sum active variants; quick view uses the same OrderPicker as product details. Why: availability and quantity rules stay consistent across browsing paths.
