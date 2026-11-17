@@ -27,5 +27,6 @@
 - [ ] Test order rules and full buyer/staff flows across phone and desktop
 
 ## Remix setup and order review
-- [ ] Update TELEGRAM_BOT_TOKEN and TELEGRAM_WEBHOOK_SECRET through the secure form
-- [ ] Verify all product order screens and resolve repeat-order issues
+- [x] Update TELEGRAM_BOT_TOKEN and TELEGRAM_WEBHOOK_SECRET through the secure form
+- [x] Resolve repeat-order requests and make payment evidence/history atomic
+- [ ] Verify all product and signed-in staff order screens in the remix (requires restored catalog and an admin account)
