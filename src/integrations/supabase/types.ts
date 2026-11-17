@@ -618,6 +618,10 @@ export type Database = {
         }
         Returns: undefined
       }
+      submit_order_evidence: {
+        Args: { p_id: string; p_image: string; p_revision: number }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
