@@ -144,7 +144,7 @@ export default function AdminCatalogPage() {
             <p>
               Staff only.{' '}
               <Link to="/login" className="font-semibold underline">
-                Sign in with Telegram
+                Sign in with Google
               </Link>{' '}
               first.
             </p>
@@ -154,6 +154,7 @@ export default function AdminCatalogPage() {
 
       {status === 'ok' && data && (
         <>
+          <Link to="/admin/orders" className="font-semibold underline">Manage orders</Link>
           <section className="flex flex-col gap-3">
             <h2 className="text-lg font-semibold text-foreground">Categories</h2>
             {data.categories.map((c) => (

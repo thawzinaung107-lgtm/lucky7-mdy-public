@@ -31,10 +31,13 @@ use the editor.
 
 ## Storefront (migrated from Bolt)
 - Server logic lives in `src/lib/store.functions.ts` (createServerFn) and `src/routes/api/public/telegram-webhook.ts`; the service-role client is imported inside handlers only. Why: ports of the old edge functions; carts/buyers/sessions tables have no browser access.
-- Buyers sign in with Telegram (custom hashed sessions in `buyer_sessions`), not Cloud Auth. Why: preserves the original identity keyed on Telegram user id.
+- Buyers sign in with Google; legacy Telegram sessions remain for imported features. Why: preserve existing data while using the chosen buyer sign-in.
 - Page components live in `src/views/` and use `@/lib/router` (react-router-style adapter over TanStack Router). Why: keeps imported Bolt components unchanged.
 - tsconfig has `noPropertyAccessFromIndexSignature` and `noUncheckedIndexedAccess` off. Why: imported code was written without them.
 - Staff access = a row in `public.staff` (Telegram user id); `src/lib/admin.functions.ts` checks the buyer session token and staff row server-side on every call. Why: reuses Telegram login; no separate admin account system.
 - Compact text/control rows use minmax(0,1fr) grids and non-shrinking controls; shared bilingual typography lives in src/styles.css. Why: prevents narrow-screen overflow and preserves Myanmar character spacing across pages.
-- Shopping helpers remain browser-safe; Telegram checkout prepares a message only after a valid current quote and never records a placed order. Why: sharing requires the buyer to send and the shop to confirm.
+- Checkout saves Pending orders through transactional database functions before contact; browser-safe receipt capabilities allow guest readback. Why: a sent message is not required for a durable request, and requests are not confirmations.
+- Order staff functions verify the authenticated staff-email permission through the user's client before loading the privileged client. Why: buyer metadata must never grant staff permissions.
+- Order inventory changes use transactional functions and a shared inventory lock; available stock is physical minus reservations everywhere. Why: concurrent confirmations cannot oversell and shipping deducts exactly once.
+- Payment evidence is size-limited inline image data in private order records. Why: keeps buyer evidence private without public storage links.
 - Catalog stock badges sum active variants; quick view uses the same OrderPicker as product details. Why: availability and quantity rules stay consistent across browsing paths.

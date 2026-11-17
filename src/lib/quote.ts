@@ -39,6 +39,7 @@ export async function fetchCartQuote(
   if (!isRecord(data) || !Array.isArray(data.quotes)) {
     throw new Error('quote_request_failed');
   }
+  if (asStringArray(data.unknownVariantIds).length > 0) throw new Error('unknown_variant');
   const quotes = data.quotes.filter(isRecord).map<QuoteLine>((line) => ({
     productId: typeof line.productId === 'string' ? line.productId : '',
     slug: typeof line.slug === 'string' ? line.slug : '',

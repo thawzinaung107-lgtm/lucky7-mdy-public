@@ -29,6 +29,7 @@ interface VariantRow {
   color_en: string;
   size_label: string;
   stock_qty: number;
+  available_qty: number | null;
   is_active: boolean;
 }
 
@@ -50,7 +51,7 @@ interface ProductRow {
 }
 
 const PRODUCT_COLUMNS =
-  'id, slug, category_id, name_my, name_en, summary_my, summary_en, retail_price_mmk, moq, order_step, primary_image_url, created_at, product_price_tiers(customer_group, min_qty, unit_price_mmk), product_variants(id, sku, color_my, color_en, size_label, stock_qty, is_active)';
+  'id, slug, category_id, name_my, name_en, summary_my, summary_en, retail_price_mmk, moq, order_step, primary_image_url, created_at, product_price_tiers(customer_group, min_qty, unit_price_mmk), product_variants(id, sku, color_my, color_en, size_label, stock_qty, available_qty, is_active)';
 
 function requireArray<T>(value: unknown, label: string): T[] {
   if (!Array.isArray(value)) {
@@ -84,7 +85,7 @@ function mapVariant(row: VariantRow): Variant {
     colorMy: row.color_my,
     colorEn: row.color_en,
     sizeLabel: row.size_label,
-    stockQty: row.stock_qty,
+    stockQty: row.available_qty ?? row.stock_qty,
     isActive: row.is_active,
   };
 }
@@ -107,7 +108,7 @@ function mapProduct(row: ProductRow): ProductSummary {
     primaryImageUrl: row.primary_image_url,
     priceTiers: mapTiers(row.product_price_tiers),
     createdAt: row.created_at,
-    stockQty: (row.product_variants ?? []).filter((variant) => variant.is_active).reduce((sum, variant) => sum + variant.stock_qty, 0),
+    stockQty: (row.product_variants ?? []).filter((variant) => variant.is_active).reduce((sum, variant) => sum + (variant.available_qty ?? variant.stock_qty), 0),
   };
 }
 

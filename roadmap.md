@@ -18,3 +18,10 @@
 ## Telegram setup
 - [x] Set shop Telegram link
 - [x] Add owner as admin
+
+## Saved order management
+- [ ] Save validated, duplicate-safe Pending orders before Telegram/Viber contact
+- [ ] Add buyer order details and payment proof submission
+- [ ] Add staff order review, revisions, payment verification and history
+- [ ] Implement atomic inventory reservations, shipping, cancellation and inspected returns
+- [ ] Test order rules and full buyer/staff flows across phone and desktop

@@ -157,6 +157,213 @@ export type Database = {
         }
         Relationships: []
       }
+      order_events: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          id: string
+          order_id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          order_id: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          id?: string
+          order_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_events_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      order_items: {
+        Row: {
+          color_en: string
+          color_my: string
+          id: string
+          name_en: string
+          name_my: string
+          order_id: string
+          original_unit_price_mmk: number
+          product_id: string
+          qty: number
+          returned_qty: number
+          size_label: string
+          unit_price_mmk: number
+          variant_id: string
+        }
+        Insert: {
+          color_en: string
+          color_my: string
+          id?: string
+          name_en: string
+          name_my: string
+          order_id: string
+          original_unit_price_mmk: number
+          product_id: string
+          qty: number
+          returned_qty?: number
+          size_label: string
+          unit_price_mmk: number
+          variant_id: string
+        }
+        Update: {
+          color_en?: string
+          color_my?: string
+          id?: string
+          name_en?: string
+          name_my?: string
+          order_id?: string
+          original_unit_price_mmk?: number
+          product_id?: string
+          qty?: number
+          returned_qty?: number
+          size_label?: string
+          unit_price_mmk?: number
+          variant_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_items_variant_id_fkey"
+            columns: ["variant_id"]
+            isOneToOne: false
+            referencedRelation: "product_variants"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          address: string
+          buyer_agreed: boolean
+          buyer_name: string
+          buyer_notes: string
+          cancellation_reason: string | null
+          completed_at: string | null
+          created_at: string
+          delivery_mmk: number
+          delivery_service: string
+          discount_mmk: number
+          final_total_mmk: number
+          id: string
+          order_number: string
+          payment_method: string
+          payment_proof: string | null
+          payment_status: string
+          payment_verified_at: string | null
+          payment_verified_by: string | null
+          phone: string
+          public_notes: string
+          receipt_hash: string
+          request_key: string
+          revision: number
+          shipped_at: string | null
+          staff_notes: string
+          status: string
+          subtotal_mmk: number
+          tracking_number: string
+          updated_at: string
+          user_id: string | null
+          wholesale_eligible: boolean
+        }
+        Insert: {
+          address: string
+          buyer_agreed?: boolean
+          buyer_name: string
+          buyer_notes?: string
+          cancellation_reason?: string | null
+          completed_at?: string | null
+          created_at?: string
+          delivery_mmk?: number
+          delivery_service?: string
+          discount_mmk?: number
+          final_total_mmk?: number
+          id?: string
+          order_number?: string
+          payment_method: string
+          payment_proof?: string | null
+          payment_status?: string
+          payment_verified_at?: string | null
+          payment_verified_by?: string | null
+          phone: string
+          public_notes?: string
+          receipt_hash: string
+          request_key: string
+          revision?: number
+          shipped_at?: string | null
+          staff_notes?: string
+          status?: string
+          subtotal_mmk?: number
+          tracking_number?: string
+          updated_at?: string
+          user_id?: string | null
+          wholesale_eligible?: boolean
+        }
+        Update: {
+          address?: string
+          buyer_agreed?: boolean
+          buyer_name?: string
+          buyer_notes?: string
+          cancellation_reason?: string | null
+          completed_at?: string | null
+          created_at?: string
+          delivery_mmk?: number
+          delivery_service?: string
+          discount_mmk?: number
+          final_total_mmk?: number
+          id?: string
+          order_number?: string
+          payment_method?: string
+          payment_proof?: string | null
+          payment_status?: string
+          payment_verified_at?: string | null
+          payment_verified_by?: string | null
+          phone?: string
+          public_notes?: string
+          receipt_hash?: string
+          request_key?: string
+          revision?: number
+          shipped_at?: string | null
+          staff_notes?: string
+          status?: string
+          subtotal_mmk?: number
+          tracking_number?: string
+          updated_at?: string
+          user_id?: string | null
+          wholesale_eligible?: boolean
+        }
+        Relationships: []
+      }
       product_price_tiers: {
         Row: {
           created_at: string
@@ -194,34 +401,40 @@ export type Database = {
       }
       product_variants: {
         Row: {
+          available_qty: number | null
           color_en: string
           color_my: string
           created_at: string
           id: string
           is_active: boolean
           product_id: string
+          reserved_qty: number
           size_label: string
           sku: string
           stock_qty: number
         }
         Insert: {
+          available_qty?: number | null
           color_en: string
           color_my?: string
           created_at?: string
           id?: string
           is_active?: boolean
           product_id: string
+          reserved_qty?: number
           size_label: string
           sku: string
           stock_qty?: number
         }
         Update: {
+          available_qty?: number | null
           color_en?: string
           color_my?: string
           created_at?: string
           id?: string
           is_active?: boolean
           product_id?: string
+          reserved_qty?: number
           size_label?: string
           sku?: string
           stock_qty?: number
@@ -383,7 +596,28 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_pending_order: {
+        Args: {
+          p_buyer: Json
+          p_items: Json
+          p_notes: string
+          p_receipt: string
+          p_request: string
+          p_user: string
+        }
+        Returns: string
+      }
+      is_order_staff: { Args: never; Returns: boolean }
+      manage_order: {
+        Args: {
+          p_action: string
+          p_actor: string
+          p_id: string
+          p_patch: Json
+          p_revision: number
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

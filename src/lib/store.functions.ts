@@ -31,7 +31,7 @@ function parseQtyItems(value: unknown, max: number): QuoteInput[] {
 export const quoteCart = createServerFn({ method: "POST" })
   .inputValidator((input: { items: unknown }) => {
     const items = parseQtyItems(input?.items, 100);
-    if (items.length === 0) throw new Error("invalid_items");
+    if (items.length === 0 || new Set(items.map((i) => i.variantId)).size !== items.length) throw new Error("invalid_items");
     return { items };
   })
   .handler(async ({ data }) => {
@@ -40,7 +40,7 @@ export const quoteCart = createServerFn({ method: "POST" })
     const { data: rows, error } = await db
       .from("product_variants")
       .select(
-        "id, sku, stock_qty, is_active, products!inner(id, slug, status, name_en, retail_price_mmk, moq, order_step, product_price_tiers(customer_group, min_qty, unit_price_mmk))",
+        "id, sku, stock_qty, available_qty, is_active, products!inner(id, slug, status, name_en, retail_price_mmk, moq, order_step, product_price_tiers(customer_group, min_qty, unit_price_mmk))",
       )
       .in("id", ids);
     if (error) throw new Error(error.message);
@@ -60,7 +60,7 @@ export const quoteCart = createServerFn({ method: "POST" })
         g = { product: row.products, totalQty: 0, unavailableSkus: [] };
         groups.set(row.products.id, g);
       }
-      if (!row.is_active || item.qty > row.stock_qty) g.unavailableSkus.push(row.sku);
+      if (!row.is_active || item.qty > (row.available_qty ?? row.stock_qty)) g.unavailableSkus.push(row.sku);
       g.totalQty += item.qty;
     }
 

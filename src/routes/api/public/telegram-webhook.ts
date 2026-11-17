@@ -112,7 +112,7 @@ const CONTACT_VIEW = {
 };
 const CART_VIEW = {
   text: "🛒 ခြင်းတောင်းနှင့် အော်ဒါကို ဝက်ဘ်ဆိုဒ်မှာ ကြည့်နိုင်ပါတယ်။",
-  markup: { inline_keyboard: [[{ text: "🛒 ခြင်းတောင်း ဖွင့်ရန်", url: `${SITE}/cart` }], [{ text: "🔑 Telegram ဖြင့် ဝင်ရန်", url: `${SITE}/login` }]] },
+  markup: { inline_keyboard: [[{ text: "🛒 ခြင်းတောင်း ဖွင့်ရန်", url: `${SITE}/cart` }], [{ text: "🔑 Google ဖြင့် ဝင်ရန်", url: `${SITE}/login` }], [{ text: "📋 အော်ဒါများ", url: `${SITE}/orders` }]] },
 };
 
 export const Route = createFileRoute("/api/public/telegram-webhook")({
@@ -185,12 +185,12 @@ export const Route = createFileRoute("/api/public/telegram-webhook")({
             } else if (cmd === "help" || text === BTN.help || cmd) {
               view = { text: HELP_TEXT, markup: MAIN_KEYBOARD };
             } else if (text.includes("#L7ORDER")) {
-              const orderNo = `L7-${String(body.update_id).slice(-6)}`;
-              view = { text: `✅ အော်ဒါ လက်ခံရရှိပါပြီ!\nOrder received!\n\nအော်ဒါနံပါတ်: #${orderNo}\n\nဆိုင်မှ လက်ကျန်၊ ပို့ခနှင့် စုစုပေါင်းကို မကြာမီ အတည်ပြုပေးပါမယ်။ အတည်ပြုပြီးမှ ငွေလွှဲပေးပါ။ 🙏`, markup: MAIN_KEYBOARD };
+              const orderNo = text.match(/\bL7-\d{6,}\b/)?.[0];
+              view = { text: orderNo ? `အော်ဒါဆက်သွယ်စာ လက်ခံရရှိပါပြီ။\nအော်ဒါနံပါတ်: ${orderNo}\n\nဆိုင်မှ လက်ကျန်၊ ပို့ခနှင့် စုစုပေါင်းကို အတည်ပြုပေးပါမယ်။ အတည်ပြုပြီးမှ ငွေလွှဲပေးပါ။ 🙏` : `အော်ဒါစာ လက်ခံရရှိပါပြီ။ အော်ဒါနံပါတ်ရရန် ဝက်ဘ်ဆိုဒ်မှာ အော်ဒါတောင်းဆိုမှုတင်ပေးပါ။\n${SITE}/cart`, markup: MAIN_KEYBOARD };
               const { data: staff } = await db.from("staff").select("telegram_user_id");
               const who = [msg.chat.first_name, msg.chat.last_name].filter(Boolean).join(" ") || "Customer";
               const handle = msg.chat.username ? `@${msg.chat.username}` : `ID ${msg.chat.id}`;
-              const alert = cut(`🔔 အော်ဒါသစ် #${orderNo}\n👤 ${who} (${handle})\n\n${text.replace("#L7ORDER", "").trim()}`, 3900);
+              const alert = cut(`🔔 အော်ဒါဆက်သွယ်စာ ${orderNo ?? '(အော်ဒါနံပါတ်မပါ)'}\n👤 ${who} (${handle})\n\n${text.replace("#L7ORDER", "").trim()}\n\n${SITE}/admin/orders`, 3900);
               const chatUrl = msg.chat.username ? `https://t.me/${msg.chat.username}` : `tg://user?id=${msg.chat.id}`;
               for (const s of staff ?? []) {
                 if (s.telegram_user_id === msg.chat.id) continue;

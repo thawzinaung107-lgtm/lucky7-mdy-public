@@ -1,0 +1,3 @@
+import { createFileRoute } from '@tanstack/react-router';
+import Page from '@/views/AdminOrdersPage';
+export const Route = createFileRoute('/admin/orders/$id')({ head: () => ({ meta: [{ title: 'Manage Order — Lucky 7 Fashion Mandalay' }, { name: 'description', content: 'Verify payment, reserve stock and record delivery for a Lucky 7 order.' }, { property: 'og:title', content: 'Manage Order — Lucky 7 Fashion Mandalay' }, { property: 'og:description', content: 'Verify payment, reserve stock and record delivery for a Lucky 7 order.' }, { property: 'og:type', content: 'website' }, { name: 'twitter:card', content: 'summary' }, { name: 'robots', content: 'noindex' }] }), component: Page });

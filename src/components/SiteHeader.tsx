@@ -53,6 +53,7 @@ export default function SiteHeader() {
         </nav>
 
         <div className="ml-auto flex min-w-0 items-center justify-end gap-1.5 sm:gap-2">
+          <Link to="/orders" className="glass-pill rounded-full px-3 py-2 text-sm" aria-label={language === 'my' ? 'အော်ဒါများ' : 'Orders'} title={language === 'my' ? 'အော်ဒါများ' : 'Orders'}><ShoppingBag size={16} /></Link>
           {ready && profile ? (
             <>
               <span className="hidden min-w-0 max-w-28 items-center gap-1.5 text-sm font-semibold text-foreground xl:inline-flex">
